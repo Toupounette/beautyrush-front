@@ -1,0 +1,1 @@
+# beautyrush-front
