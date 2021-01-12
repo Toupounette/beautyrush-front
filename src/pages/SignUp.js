@@ -16,7 +16,7 @@ import {
     IonSelectOption } from '@ionic/react';
 
 import { connect } from 'react-redux';
-import { createClientAccount } from '../redux/actions';
+import { createClientAccount, createProviderAccount} from '../redux/actions';
 
 // import './SignUp.css';
 
@@ -26,13 +26,27 @@ class SignUp extends React.Component {
         this.state = { accountType:"clients" };
     }
 
-    handleRegister = () => {        
-        var name = (document.getElementById("name")  ).value;
-        var firstname = (document.getElementById("firstname")  ).value;
-        var email = (document.getElementById("email")  ).value;
-        var password = (document.getElementById("password")  ).value;
+    handleRegister = () => {    
+        if (this.state.value === 'clients'){
 
-        this.props.createClientAccount({ 'name': name, 'firstname': firstname, 'email': email, 'password': password});  
+            var name = (document.getElementById("name")  ).value;
+            var firstname = (document.getElementById("firstname")  ).value;
+            var email = (document.getElementById("email")  ).value;
+            var password = (document.getElementById("password")  ).value;
+
+            this.props.createClientAccount({ 'name': name, 'firstname': firstname, 'email': email, 'password': password});
+        }
+        else{
+            
+            var name = (document.getElementById("name")  ).value;
+            var address = (document.getElementById("address")  ).value;
+            var email = (document.getElementById("email")  ).value;
+            var password = (document.getElementById("password")  ).value;
+            var registration_number = (document.getElementById("registration_number")  ).value;
+
+            this.props.createProviderAccount({ 'name': name, 'address': address, 'email': email, 'password': password, 'registration_number': registration_number});
+        }  
+          
     };
 
     render (){
@@ -54,9 +68,22 @@ class SignUp extends React.Component {
                                 <IonItem>
                                     <IonInput name="name" id="name" type="text" placeholder="Name" required></IonInput>
                                 </IonItem>
-                                <IonItem>
-                                    <IonInput name="firstname" id="firstname" type="text" placeholder="Firstname" required></IonInput>
-                                </IonItem>
+                                {(this.state.accountType === "clients") && (
+                                    <IonItem>
+                                        <IonInput name="firstname" id="firstname" type="text" placeholder="Firstname" required></IonInput>
+                                    </IonItem>
+                                )}
+                                {(this.state.accountType === "providers") && (
+                                    <div>
+                                    <IonItem>
+                                        <IonInput name="address" id="address" type="text" placeholder="Address" required></IonInput>
+                                    </IonItem>
+
+                                    <IonItem>
+                                        <IonInput name="registration_number" id="registration_number" type="text" placeholder="Registration number" required></IonInput>
+                                    </IonItem>
+                                    </div>
+                                )}
                                 <IonItem>
                                     <IonInput name="email" id="email" type="email" placeholder="your@email.com" required></IonInput>
                                 </IonItem>
@@ -87,5 +114,7 @@ class SignUp extends React.Component {
 
 export default connect(
     null,
-    { createClientAccount }
+    { createClientAccount, createProviderAccount }
 ) (SignUp);
+
+

@@ -3,7 +3,6 @@ import { CREATE_PRPOVIDER_ACCOUNT, CREATE_CLIENT_ACCOUNT } from "./actionTypes";
 export const createClientAccount = content => ({
     type: CREATE_CLIENT_ACCOUNT,
     payload: {
-
         content
     }
 });
