@@ -27,20 +27,17 @@ class SignUp extends React.Component {
     }
 
     handleRegister = () => {    
-        if (this.state.accountType === 'clients'){
+        var name = (document.getElementById("name")  ).value;
+        var email = (document.getElementById("email")  ).value;
 
-            var name = (document.getElementById("name")  ).value;
+        if (this.state.accountType === 'clients'){
             var firstname = (document.getElementById("firstname")  ).value;
-            var email = (document.getElementById("email")  ).value;
             var password = (document.getElementById("password")  ).value;
 
             this.props.createClientAccount({ 'name': name, 'firstname': firstname, 'email': email, 'password': password});
         }
         else if (this.state.accountType === 'providers'){
-            
-            var name = (document.getElementById("name")  ).value;
             var address = (document.getElementById("address")  ).value;
-            var email = (document.getElementById("email")  ).value;
             var password = (document.getElementById("password")  ).value;
             var registration_number = (document.getElementById("registration_number")  ).value;
 
@@ -116,6 +113,7 @@ export default connect(
     null,
     { createClientAccount, createProviderAccount }
 ) (SignUp);
+
 
 
 
