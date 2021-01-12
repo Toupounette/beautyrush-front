@@ -27,7 +27,7 @@ class SignUp extends React.Component {
     }
 
     handleRegister = () => {    
-        if (this.state.value === 'clients'){
+        if (this.state.accountType === 'clients'){
 
             var name = (document.getElementById("name")  ).value;
             var firstname = (document.getElementById("firstname")  ).value;
@@ -36,7 +36,7 @@ class SignUp extends React.Component {
 
             this.props.createClientAccount({ 'name': name, 'firstname': firstname, 'email': email, 'password': password});
         }
-        else{
+        else if (this.state.accountType === 'providers'){
             
             var name = (document.getElementById("name")  ).value;
             var address = (document.getElementById("address")  ).value;
@@ -116,5 +116,7 @@ export default connect(
     null,
     { createClientAccount, createProviderAccount }
 ) (SignUp);
+
+
 
 

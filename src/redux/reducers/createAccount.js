@@ -12,16 +12,14 @@ export default function(state = initialState, action) {
         case CREATE_CLIENT_ACCOUNT:
             {
                 let path = "/clients";
-                let ip = "192.168.1.13";
-                let port = "8080";
-                let schema = "http";
                 let method = "POST";
 
                 // XMLHttpRequest = classe js qui permet de creer des requetes http
                 // new = permet de creer un objet de la classe
                 var xhttp = new XMLHttpRequest();
 
-                let url = schema + "://" + ip + ":" + port + path;
+                let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
+                console.log('url:', url);
 
 
                 // false en à la fin pour rendre cette methode générale asynchrone synchrone
@@ -46,16 +44,14 @@ export default function(state = initialState, action) {
         case CREATE_PRPOVIDER_ACCOUNT:
             {
                 let path = "/providers";
-                let ip = "192.168.1.13";
-                let port = "8080";
-                let schema = "http";
                 let method = "POST";
 
                 // XMLHttpRequest = classe js qui permet de creer des requetes http
                 // new = permet de creer un objet de la classe
                 var xhttp = new XMLHttpRequest();
 
-                let url = schema + "://" + ip + ":" + port + path;
+                let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
+                console.log('url:', url);
 
 
                 // false en à la fin pour rendre cette methode générale asynchrone synchrone
