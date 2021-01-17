@@ -1,9 +1,9 @@
 import { CONNECT_TO_CLIENT_ACCOUNT, CONNECT_TO_PRPOVIDER_ACCOUNT, LOG_OUT } from "../actionTypes";
 
 const initialState = {
-    token: localStorage.getItem('beautyToken'),
-    role: localStorage.getItem('beautyRole'),
-    id: localStorage.getItem('beautyID')
+    token: null,
+    role: null,
+    id: null
 };
 
 function connectAccount(path, data) {
@@ -53,9 +53,6 @@ export default function(state = initialState, action) {
                     id: response.id
                 };
                 console.debug("new_state: ", new_state);
-                localStorage.setItem('beatyToken', new_state.token);
-                localStorage.setItem('beatyRole', new_state.role);
-                localStorage.setItem('beatyID', new_state.id);
                 return new_state;
             }
         case CONNECT_TO_PRPOVIDER_ACCOUNT:
@@ -68,9 +65,6 @@ export default function(state = initialState, action) {
                     id: response.id
                 };
                 console.debug("new_state: ", new_state);
-                localStorage.setItem('beatyToken', new_state.token);
-                localStorage.setItem('beatyRole', new_state.role);
-                localStorage.setItem('beatyID', new_state.id);
                 return new_state;
             }
         case LOG_OUT:
