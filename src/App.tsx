@@ -33,7 +33,15 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { Redirect } from 'react-router';
 
-const App = () => (
+class App extends React.Component{
+  constructor(props:any){
+    super(props);
+    this.state = { };
+  }
+
+render (){
+return (
+  <>
   <Router>
     <div id="app">
       <IonApp>
@@ -56,7 +64,16 @@ const App = () => (
       </IonApp>
     </div>
   </Router>
+  </>
 );
-
+}
+}
 
 export default App;
+
+
+
+
+
+
+

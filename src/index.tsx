@@ -3,15 +3,28 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import store from "./redux/store";
 
 require('dotenv').config();
 
+const mapStateToProps =(state: any) =>({
+  user: state
+})
+
+function AppReturn (props: any) {
+  return(
+  <>
+  <App/>
+  </>)
+}
+
+const RealApp = connect(mapStateToProps)(AppReturn);
+
 const rootElement = document.getElementById("root");
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <RealApp />
   </Provider>,
   rootElement
 );
