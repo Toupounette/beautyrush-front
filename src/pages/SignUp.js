@@ -29,16 +29,15 @@ class SignUp extends React.Component {
     handleRegister = () => {    
         var name = (document.getElementById("name")  ).value;
         var email = (document.getElementById("email")  ).value;
+        var password = (document.getElementById("password")  ).value;
 
         if (this.state.accountType === 'clients'){
             var firstname = (document.getElementById("firstname")  ).value;
-            var password = (document.getElementById("password")  ).value;
 
             this.props.createClientAccount({ 'name': name, 'firstname': firstname, 'email': email, 'password': password});
         }
         else if (this.state.accountType === 'providers'){
             var address = (document.getElementById("address")  ).value;
-            var password = (document.getElementById("password")  ).value;
             var registration_number = (document.getElementById("registration_number")  ).value;
 
             this.props.createProviderAccount({ 'name': name, 'address': address, 'email': email, 'password': password, 'registration_number': registration_number});
@@ -58,7 +57,7 @@ class SignUp extends React.Component {
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-                            <div text-center>
+                            <div >
                                 <h3>Create your account!</h3>
                             </div>
                             <div>
@@ -113,6 +112,7 @@ export default connect(
     null,
     { createClientAccount, createProviderAccount }
 ) (SignUp);
+
 
 
 

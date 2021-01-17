@@ -51,7 +51,7 @@ class SignIn extends React.Component {
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-                            <div text-center>
+                            <div>
                                 <h3>Connect yourself!</h3>
                             </div>
                             <div>
@@ -84,6 +84,7 @@ export default connect(
     null,
     { connectToClientAccount, connectToProviderAccount }
 ) (SignIn);
+
 
 
 
