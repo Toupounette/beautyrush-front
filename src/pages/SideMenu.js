@@ -29,6 +29,10 @@ class SideMenu extends React.Component {
     handleChange = () => {
         let currentState = store.getState().connectAccount; 
         this.state.connected = currentState.id !== null ;  
+
+        if( this.state.connected === true){
+            this.navigateToPage(this.state.pages[0]);
+        }
       }
 
     renderMenuItems = () => {  
