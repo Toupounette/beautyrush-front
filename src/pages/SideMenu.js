@@ -3,6 +3,8 @@ import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuT
 import { withRouter } from 'react-router';
 
 import store from "../redux/store";
+import { connect } from 'react-redux';
+import { log_out } from '../redux/actions';
 
 class SideMenu extends React.Component {
     constructor(props) {
@@ -50,7 +52,6 @@ class SideMenu extends React.Component {
                 <IonItem button
                     color={page.title === this.state.activePage ? 'primary' : ''}
                     onClick={() => this.navigateToPage(page)}>
-                    <IonIcon slot="start" name={page.icon}></IonIcon>
                     <IonLabel>
                         {page.title}
                     </IonLabel>
@@ -79,6 +80,17 @@ class SideMenu extends React.Component {
             <IonContent>
                 <IonList>
                     {this.renderMenuItems()}
+                    {(this.state.connected === true) && (
+		     <IonMenuToggle key='Log out' auto-hide="false">
+			<IonItem button
+			    color='danger'
+			    onClick={() => {this.props.log_out()}} >
+			    <IonLabel>
+				Log out
+			    </IonLabel>
+			</IonItem>
+		     </IonMenuToggle>
+		     )}
                 </IonList>
             </IonContent>
         </IonMenu>
@@ -86,27 +98,11 @@ class SideMenu extends React.Component {
     }
 }
 
-export default withRouter(
-    SideMenu
+export default connect(
+    null,
+    { log_out }
+)  (
+    withRouter(SideMenu)
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

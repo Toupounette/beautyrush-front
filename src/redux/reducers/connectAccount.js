@@ -1,4 +1,4 @@
-import { CONNECT_TO_CLIENT_ACCOUNT, CONNECT_TO_PRPOVIDER_ACCOUNT } from "../actionTypes";
+import { CONNECT_TO_CLIENT_ACCOUNT, CONNECT_TO_PRPOVIDER_ACCOUNT, LOG_OUT } from "../actionTypes";
 
 const initialState = { token: "", role: "", id: 0 };
 
@@ -61,6 +61,10 @@ export default function(state = initialState, action) {
                 };
                 console.log("new_state: ", new_state);
                 return new_state;
+            }
+        case LOG_OUT:
+            {
+                return initialState;
             }
         default:
             return state;
