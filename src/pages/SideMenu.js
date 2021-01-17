@@ -9,12 +9,15 @@ import { log_out } from '../redux/actions';
 class SideMenu extends React.Component {
     constructor(props) {
         super(props);
+
+        let currentState = store.getState().connectAccount; 
                 
         const unsubscribe = store.subscribe(this.handleChange);
         // unsubscribe();
+        console.log("currentState: ", currentState);
 
         this.state = { 
-            connected:false,
+            connected: currentState.id !== null,
             pages: [],
         	activePage: 'Home',
             history: props.history,
@@ -25,7 +28,7 @@ class SideMenu extends React.Component {
 
     handleChange = () => {
         let currentState = store.getState().connectAccount; 
-        this.state.connected = currentState.id !== 0 ;  
+        this.state.connected = currentState.id !== null ;  
       }
 
     renderMenuItems = () => {  
@@ -104,5 +107,7 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
+
 
 

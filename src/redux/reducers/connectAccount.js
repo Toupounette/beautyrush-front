@@ -1,6 +1,10 @@
 import { CONNECT_TO_CLIENT_ACCOUNT, CONNECT_TO_PRPOVIDER_ACCOUNT, LOG_OUT } from "../actionTypes";
 
-const initialState = { token: "", role: "", id: 0 };
+const initialState = {
+    token: sessionStorage.getItem('beautyToken'),
+    role: sessionStorage.getItem('beautyRole'),
+    id: sessionStorage.getItem('beautyID')
+};
 
 function connectAccount(path, data) {
     let method = "POST";
@@ -42,28 +46,36 @@ export default function(state = initialState, action) {
         case CONNECT_TO_CLIENT_ACCOUNT:
             {
                 let response = connectAccount('/clients/login', action.payload.content);
-                console.log("client response: ", response);
+                console.debug("client response: ", response);
                 let new_state = {
                     token: response.token,
                     role: response.role,
                     id: response.id
                 };
+                console.debug("new_state: ", new_state);
+                sessionStorage.setItem('beatyToken', new_state.token);
+                sessionStorage.setItem('beatyRole', new_state.role);
+                sessionStorage.setItem('beatyID', new_state.id);
                 return new_state;
             }
         case CONNECT_TO_PRPOVIDER_ACCOUNT:
             {
                 let response = connectAccount('/providers/login', action.payload.content);
-                console.log("providers response: ", response);
+                console.debug("providers response: ", response);
                 let new_state = {
                     token: response.token,
                     role: response.role,
                     id: response.id
                 };
-                console.log("new_state: ", new_state);
+                console.debug("new_state: ", new_state);
+                sessionStorage.setItem('beatyToken', new_state.token);
+                sessionStorage.setItem('beatyRole', new_state.role);
+                sessionStorage.setItem('beatyID', new_state.id);
                 return new_state;
             }
         case LOG_OUT:
             {
+                sessionStorage.clear();
                 return initialState;
             }
         default:
