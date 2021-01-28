@@ -14,7 +14,7 @@ class SideMenu extends React.Component {
                 
         const unsubscribe = store.subscribe(this.handleChange);
         // unsubscribe();
-        console.log("currentState: ", currentState);
+        //console.log("currentState: ", currentState);
 
         this.state = { 
             connected: currentState.id !== null,
@@ -33,10 +33,10 @@ class SideMenu extends React.Component {
         if( this.state.connected === true){
             this.navigateToPage(this.state.pages[0]);
         }
-      }
+    }
 
     renderMenuItems = () => {  
-        console.log("this.state.connected: ", this.state.connected);
+        //console.log("this.state.connected: ", this.state.connected);
         if(this.state.connected === false)
         {
             this.state.pages = [
@@ -44,13 +44,16 @@ class SideMenu extends React.Component {
                 { icon: '', title: 'Sign in', path: '/signIn' },
                 { icon: '', title: 'Sign up', path: '/signUp' },
                 { icon: '', title: 'About', path: '/about' },
+                
             ];
         }
         else
         {
             this.state.pages = [
                 { icon: '', title: 'Home', path: '/' },
-                { icon: '', title: 'About', path: '/about' },
+                { icon: '', title: 'Profile', path: '/user' },
+                { icon: '', title: 'About', path: '/about' }
+                
             ];
         }
         
@@ -91,7 +94,10 @@ class SideMenu extends React.Component {
 		     <IonMenuToggle key='Log out' auto-hide="false">
 			<IonItem button
 			    color='danger'
-			    onClick={() => {this.props.log_out()}} >
+			    onClick={() => {
+                    this.props.log_out();
+                    this.navigateToPage(this.state.pages[0]);
+                    }} >
 			    <IonLabel>
 				Log out
 			    </IonLabel>
