@@ -3,7 +3,9 @@ import {
     CREATE_CLIENT_ACCOUNT,
     CONNECT_TO_PRPOVIDER_ACCOUNT,
     CONNECT_TO_CLIENT_ACCOUNT,
-    LOG_OUT
+    LOG_OUT,
+    SEARCH,
+    //SEARCH_BY_SERVICE 
 }
 from "./actionTypes";
 
@@ -41,3 +43,17 @@ export const connectToClientAccount = content => ({
         content
     }
 });
+
+export const search = content => ({
+    type: SEARCH,
+    payload: {
+        content
+    }
+});
+
+//export const searchByService = content => ({
+//    type: SEARCH_BY_SERVICE,
+//    payload: {
+//        content
+//    }
+//});

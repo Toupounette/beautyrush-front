@@ -21,15 +21,6 @@ function connectAccount(path, data) {
     //Configuration du content-type de la requete.Les données de la requete sont en format JSON car c'est le format choisi dans mon API back (node.js)
     xhttp.setRequestHeader("Content-Type", "application/json");
 
-    // //Fonction appellée quand il y aura une réponse (ou pas) de l'API (back)
-    // xhttp.onreadystatechange = function() {
-    //     // condition permet de verifier que tout c'est bien passé (code 200)
-    //     if (this.readyState === 4 && this.status === 200) {
-    //         console.log("this : ", this);
-    //         console.log("this.response : ", this.response);
-    //         return this.response;
-    //     }
-    // };
     xhttp.send(JSON.stringify(data));
 
     if (xhttp.status === 200) {
