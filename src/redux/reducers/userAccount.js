@@ -11,9 +11,7 @@ export default function(state = initialState, action) {
     switch (action.type) {
         case USER_ACCOUNT:
             {
-                console.log("state = ", state);
-                console.log(" action.payload.content = ", action.payload.content);
-                return state;
+                return action.payload.content;
             }
         case LOG_OUT:
             {

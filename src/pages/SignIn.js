@@ -30,12 +30,14 @@ class SignIn extends React.Component {
     }
         
     connectAccount = (path, data) => {
+        // Methode d'envoie de la requete : GET | POST | PUT | PATCH | DELETE
         let method = "POST";
     
         // XMLHttpRequest = classe js qui permet de creer des requetes http
         // new = permet de creer un objet de la classe
         var xhttp = new XMLHttpRequest();
     
+        // URL de la requete contruite avec les donnees du fichier .env
         let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path + "/login";
     
         // false en à la fin pour rendre cette methode générale asynchrone synchrone

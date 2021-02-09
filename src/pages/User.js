@@ -1,8 +1,5 @@
 import React from 'react';
 
-
-// import './User.css';
-
 import {
     IonPage,
     IonTitle,

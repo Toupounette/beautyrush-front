@@ -10,14 +10,13 @@ class SideMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        let currentState = store.getState().connectAccount; 
+        let currentState = store.getState().userAccount; 
                 
         const unsubscribe = store.subscribe(this.handleChange);
         // unsubscribe();
-        //console.log("currentState: ", currentState);
 
         this.state = { 
-            connected: false, //currentState.id !== null,
+            connected: currentState.id !== null,
             pages: [],
         	activePage: 'Home',
             history: props.history,
@@ -27,7 +26,7 @@ class SideMenu extends React.Component {
     componentDidMount(){}
 
     handleChange = () => {
-        let currentState = store.getState().connectAccount; 
+        let currentState = store.getState().userAccount; 
         this.state.connected = currentState.id !== null ;  
 
         if( this.state.connected === true){

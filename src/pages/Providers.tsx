@@ -1,5 +1,4 @@
 import React from 'react';
-import './Providers.css';
 
 const Providers: React.FC = () => {
     return (
