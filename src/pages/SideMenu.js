@@ -17,7 +17,7 @@ class SideMenu extends React.Component {
         //console.log("currentState: ", currentState);
 
         this.state = { 
-            connected: currentState.id !== null,
+            connected: false, //currentState.id !== null,
             pages: [],
         	activePage: 'Home',
             history: props.history,

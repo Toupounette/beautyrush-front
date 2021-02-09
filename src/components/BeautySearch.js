@@ -1,7 +1,6 @@
 import React from 'react';
 import { IonButton, IonCol, IonGrid, IonRow, IonSearchbar } from '@ionic/react';
-import { connect } from 'react-redux';
-import { search } from '../redux/actions';
+
 
 class BeautySearch extends React.Component  {
     constructor(props) {
@@ -10,19 +9,15 @@ class BeautySearch extends React.Component  {
         this.state = {
             searchText: '',
             searchByName: false
-
         };
     }
 
-    handleSearch = (e) => {
-       
+    handleSearch = (e) => {       
         if (e.key === "Enter" && this.state.searchText.length > 2)
-        {
-            
+        {            
             this.props.search( this.state );
         }
-    }
-   
+    }   
 
     render (){
         return (
@@ -52,7 +47,4 @@ class BeautySearch extends React.Component  {
     
 }
 
-export default connect(
-    null,
-    { search }
-) (BeautySearch);
+export default BeautySearch;

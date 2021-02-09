@@ -30,7 +30,7 @@ class User extends React.Component {
             showModalAdminComments: false,
             showModalAdminClientsAccount: false,
             showModalAdminProvidersAccount: false,
-            role : store.getState().connectAccount.role
+            role : store.getState().userAccount.role
         };
     }
 
