@@ -27,17 +27,14 @@ class User extends React.Component {
             showModalAdminComments: false,
             showModalAdminClientsAccount: false,
             showModalAdminProvidersAccount: false,
-            role : store.getState().userAccount.role
+            role : store.getState().userAccount.role,
+            userId : store.getState().userAccount.id
         };
     }
 
     render (){
         return (
            <IonPage>
-               
-               <IonHeader>
-                   <IonTitle>BeautyRush</IonTitle>
-               </IonHeader>
                <IonContent>
                    <IonGrid>
                    { (this.state.role === 'admin') && (

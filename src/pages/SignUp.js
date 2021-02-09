@@ -98,11 +98,6 @@ class SignUp extends React.Component {
     render (){
         return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>BeautyRush</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonContent>
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>

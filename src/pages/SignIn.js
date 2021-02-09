@@ -76,8 +76,8 @@ class SignIn extends React.Component {
                 // On enregistre dans redux les information de connexion de l'utilisateur
                 this.props.userAccount(JSON.parse(connectAccountResponse.responseText))
 
-                // On redirige l'utilisateur vers la page de connexion
-                //window.location.replace('/user');
+                // On redirige l'utilisateur vers la page d'accueil
+                window.location.replace('/home');
                 break;
             }
             case 401 :
@@ -102,11 +102,6 @@ class SignIn extends React.Component {
     render (){
         return (
         <IonPage>
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>BeautyRush</IonTitle>
-                </IonToolbar>
-            </IonHeader>
             <IonContent>
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>

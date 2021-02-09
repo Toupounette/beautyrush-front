@@ -70,13 +70,22 @@ class Home extends React.Component {
         }
     } 
 
+    handleViewProviderProfile = (providerId) =>{
+        let element = document.createElement('a');
+        element.setAttribute("href", "/provider/"+providerId);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
+
   renderSearchResult = () => {
     return this.state.searchResult.map((provider) =>(
         <IonCard>
             <IonItem>
                 <IonIcon icon={aperture} slot="start" />
                 <IonLabel>{provider.name}</IonLabel>
-                <IonButton fill="outline" slot="end">Profile</IonButton>
+                <IonButton fill="outline" slot="end" onClick={() => {this.handleViewProviderProfile(provider.ID)}}>Profile</IonButton>
           </IonItem>
 
             <IonCardContent>
