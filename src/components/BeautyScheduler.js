@@ -54,7 +54,7 @@ class BeautyScheduler extends React.Component{
         let calendar = 
            (<Calendar
                 events={this.retrieveappointments()}
-                views={["month", "week", "day"]}
+                views={{work_week: true, month: true}}
                 defaultDate={new Date()}
                 localizer={momentLocalizer(moment)}
                 style={{ height: 500 }}
