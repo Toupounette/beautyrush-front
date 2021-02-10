@@ -10,10 +10,13 @@ import {
     IonLabel,
     IonGrid,
     IonCol,
-    IonRow
+    IonRow,
+    IonTitle
 } from '@ionic/react';
 
 import { aperture } from 'ionicons/icons';
+
+import BeautyScheduler from '../components/BeautyScheduler'
 
 class Provider extends React.Component {
     constructor(props){
@@ -84,6 +87,16 @@ class Provider extends React.Component {
         //));
     }
 
+    renderServices = () =>{
+        return this.state.services.map((service) =>(
+            <IonLabel>{service.title} | {service.price} €</IonLabel>
+        ));
+    }
+
+    renderScheduler = () =>{
+        return (<BeautyScheduler  />);
+    }
+
     render(){
         return(
             <IonPage>
@@ -102,15 +115,17 @@ class Provider extends React.Component {
                         <IonGrid>
                             <IonRow>
                                 <IonCol>
-                                    Avis
+                                    <IonTitle>Services</IonTitle>
+                                    {this.renderServices()}
                                 </IonCol>
-                                <IonCol>
-                                    agenda
+                                <IonCol offset-4>
+                                    <IonTitle>Schedule</IonTitle>
+                                    {this.renderScheduler()}
                                 </IonCol>
                             </IonRow>
                             <IonRow>
                                 <IonCol>
-                                    presta
+                                    <IonTitle>Comments</IonTitle>
                                 </IonCol>
                             </IonRow>
                         </IonGrid>

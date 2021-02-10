@@ -10,7 +10,6 @@ import About from './pages/About';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import User from './pages/User';
-import Schedule from './pages/Schedule';
 import Provider from './pages/Provider';
 
 /* Core CSS required for Ionic components to work properly */
@@ -54,7 +53,6 @@ return (
               <Route path="/signin" component={SignIn} exact={true} />
               <Route path="/signup" component={SignUp} exact={true} />
               <Route path="/user" component={User} exact={true} />
-              <Route path="/schedule" component={Schedule} exact={true} />
               <Route path="/provider/:id" component={Provider} exact={true} />
               <Route path="/home" component={Home} exact={true} />
               <Route exact path="/" render={() => <Redirect to="/home" />} />

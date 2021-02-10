@@ -1,5 +1,7 @@
 {
   "name": "beautyrush",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "react"
 }
