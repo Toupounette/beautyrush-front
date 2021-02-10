@@ -78,7 +78,7 @@ class SideMenu extends React.Component {
 
     render (){
     return (
-        <IonMenu contentId="main">
+        <IonMenu contentId="main" class="main-menu">
             <IonHeader>
                 <IonToolbar>
                     <IonTitle>
@@ -116,6 +116,7 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
 
 
 
