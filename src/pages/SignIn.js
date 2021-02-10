@@ -29,9 +29,9 @@ class SignIn extends React.Component {
             showToastError : false };
     }
         
-    connectAccount = (path, data) => {
+    connectAccount(path, data){
         // Methode d'envoie de la requete : GET | POST | PUT | PATCH | DELETE
-        let method = "POST";
+        const method = "POST";
     
         // XMLHttpRequest = classe js qui permet de creer des requetes http
         // new = permet de creer un objet de la classe
@@ -53,7 +53,7 @@ class SignIn extends React.Component {
         return xhttp;
     }
 
-    handleConnection = () => {    
+    handleConnection(){    
         var email = (document.getElementById("email")  ).value;
         var password = (document.getElementById("password")  ).value;
 

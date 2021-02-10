@@ -31,7 +31,7 @@ class Home extends React.Component {
 
   search(){
       // Methode d'envoie de la requete : GET | POST | PUT | PATCH | DELETE
-      let method = "GET";
+      const method = "GET";
   
       // XMLHttpRequest = classe js qui permet de creer des requetes http
       // new = permet de creer un objet de la classe
@@ -61,7 +61,7 @@ class Home extends React.Component {
       return JSON.parse(xhttp.responseText);
   }
 
-    handleSearch = (e) => {       
+    handleSearch(e){       
         if (e.key === "Enter" && this.state.searchText.length > 2)
         {   
             const results = this.search( );
@@ -70,7 +70,7 @@ class Home extends React.Component {
         }
     } 
 
-    handleViewProviderProfile = (providerId) =>{
+    handleViewProviderProfile(providerId){
         let element = document.createElement('a');
         element.setAttribute("href", "/provider/"+providerId);
         element.style.display = 'none';
@@ -79,7 +79,7 @@ class Home extends React.Component {
         document.body.removeChild(element);
     }
 
-  renderSearchResult = () => {
+  renderSearchResult(){
     return this.state.searchResult.map((provider) =>(
         <IonCard>
             <IonItem>

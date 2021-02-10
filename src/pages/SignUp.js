@@ -30,9 +30,9 @@ class SignUp extends React.Component {
         };
     }
 
-    createAccount = (path, data) => {
+    createAccount(path, data){
         // Methode d'envoie de la requete : GET | POST | PUT | PATCH | DELETE
-        let method = "POST";
+        const method = "POST";
     
         // XMLHttpRequest = classe js qui permet de creer des requetes http
         // new = permet de creer un objet de la classe
@@ -54,7 +54,7 @@ class SignUp extends React.Component {
         return xhttp;
     }
 
-    handleRegister = () => {    
+    handleRegister(){    
         var name = (document.getElementById("name")  ).value;
         var email = (document.getElementById("email")  ).value;
         var password = (document.getElementById("password")  ).value;

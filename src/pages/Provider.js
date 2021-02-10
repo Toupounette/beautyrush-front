@@ -36,8 +36,8 @@ class Provider extends React.Component {
         }
     }
 
-    getProviderServices = () =>{
-        let method = "GET";    
+    getProviderServices(){
+        const method = "GET";    
         var xhttp = new XMLHttpRequest();    
         let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id + "/services";
     
@@ -49,8 +49,8 @@ class Provider extends React.Component {
         return JSON.parse(xhttp.responseText);        
     }
 
-    getProviderInfo = () =>{
-        let method = "GET";
+    getProviderInfo(){
+        const method = "GET";
         var xhttp = new XMLHttpRequest();
         let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id;
     
@@ -62,12 +62,9 @@ class Provider extends React.Component {
         return JSON.parse(xhttp.responseText);         
     }
 
-    getProviderContent = () =>{
+    getProviderContent(){
         let info = this.getProviderInfo()[0];
         let services = this.getProviderServices();
-
-        console.log("info = ", info);
-        console.log("services = ", services);
 
         this.setState({
             info: info,
@@ -75,11 +72,11 @@ class Provider extends React.Component {
         });
     }
 
-    componentDidMount = () =>{
+    componentWillMount(){
         this.getProviderContent();
     }
 
-    renderSlides = () =>{
+    renderSlides(){
         //return this.state.services.map((service) => (
         //    <IonSlide>
         //        {service.title}
@@ -87,14 +84,16 @@ class Provider extends React.Component {
         //));
     }
 
-    renderServices = () =>{
+    renderServices(){
         return this.state.services.map((service) =>(
             <IonLabel>{service.title} | {service.price} €</IonLabel>
         ));
     }
 
-    renderScheduler = () =>{
-        return (<BeautyScheduler  />);
+    renderScheduler(){
+
+        console.log("this.state.info = ", this.state.info);
+        return (<BeautyScheduler type="providers" identifier={this.state.info.ID} />);
     }
 
     render(){
@@ -118,8 +117,7 @@ class Provider extends React.Component {
                                     <IonTitle>Services</IonTitle>
                                     {this.renderServices()}
                                 </IonCol>
-                                <IonCol offset-4>
-                                    <IonTitle>Schedule</IonTitle>
+                                <IonCol >
                                     {this.renderScheduler()}
                                 </IonCol>
                             </IonRow>

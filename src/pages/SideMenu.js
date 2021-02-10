@@ -25,7 +25,7 @@ class SideMenu extends React.Component {
 
     componentDidMount(){}
 
-    handleChange = () => {
+    handleChange(){
         let currentState = store.getState().userAccount; 
         this.state.connected = currentState.id !== null ;  
 
@@ -34,7 +34,7 @@ class SideMenu extends React.Component {
         }
     }
 
-    renderMenuItems = () => {  
+    renderMenuItems(){  
         //console.log("this.state.connected: ", this.state.connected);
         if(this.state.connected === false)
         {
@@ -69,7 +69,7 @@ class SideMenu extends React.Component {
         ));
     }
 
-    navigateToPage = (page) => {
+    navigateToPage(page){
     	let local_history = this.state.history;
     	
         local_history.push(page.path);
