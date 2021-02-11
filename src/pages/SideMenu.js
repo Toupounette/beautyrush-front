@@ -1,4 +1,6 @@
 import React from 'react';
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import { 
     IonMenu, 
     IonHeader, 
@@ -10,6 +12,12 @@ import {
     IonLabel, 
     IonItem 
 } from "@ionic/react";
+=======
+import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem, IonButton } from "@ionic/react";
+>>>>>>> Stashed changes
+=======
+import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem, IonButton } from "@ionic/react";
+>>>>>>> Stashed changes
 import { withRouter } from 'react-router';
 
 import store from "../redux/store";
@@ -99,7 +107,7 @@ class SideMenu extends React.Component {
                     {this.renderMenuItems()}
                     {(this.state.connected === true) && (
 		     <IonMenuToggle key='Log out' auto-hide="false">
-			<IonItem button
+			<IonButton
 			    color='danger'
 			    onClick={() => {
                     this.props.log_out();
@@ -108,7 +116,7 @@ class SideMenu extends React.Component {
 			    <IonLabel>
 				Log out
 			    </IonLabel>
-			</IonItem>
+			</IonButton>
 		     </IonMenuToggle>
 		     )}
                 </IonList>
@@ -124,6 +132,7 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
 
 
 
