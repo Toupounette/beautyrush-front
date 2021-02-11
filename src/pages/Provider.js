@@ -11,12 +11,16 @@ import {
     IonGrid,
     IonCol,
     IonRow,
-    IonTitle
+    IonTitle,
+    IonText,
+    IonAvatar,
+    IonImg
 } from '@ionic/react';
 
 import { aperture } from 'ionicons/icons';
 
-import BeautyScheduler from '../components/BeautyScheduler'
+import BeautyScheduler from '../components/BeautyScheduler';
+import BeautyHeader from '../components/BeautyHeader';
 
 class Provider extends React.Component {
     constructor(props){
@@ -77,11 +81,11 @@ class Provider extends React.Component {
     }
 
     renderSlides(){
-        //return this.state.services.map((service) => (
-        //    <IonSlide>
-        //        {service.title}
-        //    </IonSlide>
-        //));
+        return this.state.services.map((service) => (
+            <IonSlide>
+                {service.title}
+            </IonSlide>
+        ));
     }
 
     renderServices(){
@@ -91,17 +95,34 @@ class Provider extends React.Component {
     }
 
     renderScheduler(){
-
-        console.log("this.state.info = ", this.state.info);
         return (<BeautyScheduler type="providers" identifier={this.state.info.ID} />);
+    }
+
+    renderOveriew(){
+        return(<IonText>{this.state.info.overview}</IonText>);
+    }
+
+    renderAvatar(){
+        if(this.state.info.avatar !== null && this.state.info.avatar.trim() === "")
+        {
+            return(
+            <IonAvatar>
+                <IonImg src={this.state.info.avatar} />
+            </IonAvatar>);
+        }
+        else
+        {
+            return(<IonIcon icon={aperture} slot="start" />);
+        }
     }
 
     render(){
         return(
             <IonPage>
+            <BeautyHeader />
                 <IonContent>                    
                     <IonItem>
-                        <IonIcon icon={aperture} slot="start" />
+                        {this.renderAvatar()}
                         <IonLabel>{this.state.info.name}</IonLabel>
                         <IonLabel>{this.state.info.address}</IonLabel>
                     </IonItem>
@@ -112,6 +133,12 @@ class Provider extends React.Component {
                     </IonItem>
                     <IonItem>
                         <IonGrid>
+                            <IonRow>
+                                <IonCol>
+                                    <IonTitle>Overwies</IonTitle>
+                                    {this.renderOveriew()}
+                                </IonCol>
+                            </IonRow>
                             <IonRow>
                                 <IonCol>
                                     <IonTitle>Services</IonTitle>

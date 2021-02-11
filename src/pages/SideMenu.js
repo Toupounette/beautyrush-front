@@ -1,5 +1,15 @@
 import React from 'react';
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem } from "@ionic/react";
+import { 
+    IonMenu, 
+    IonHeader, 
+    IonToolbar, 
+    IonTitle, 
+    IonContent, 
+    IonList, 
+    IonMenuToggle, 
+    IonLabel, 
+    IonItem 
+} from "@ionic/react";
 import { withRouter } from 'react-router';
 
 import store from "../redux/store";
@@ -12,8 +22,7 @@ class SideMenu extends React.Component {
 
         let currentState = store.getState().userAccount; 
                 
-        const unsubscribe = store.subscribe(this.handleChange);
-        // unsubscribe();
+        store.subscribe(this.handleChange);
 
         this.state = { 
             connected: currentState.id !== null,
@@ -27,7 +36,7 @@ class SideMenu extends React.Component {
 
     handleChange(){
         let currentState = store.getState().userAccount; 
-        this.state.connected = currentState.id !== null ;  
+        this.setState({connected: currentState.id !== null}) ;  
 
         if( this.state.connected === true){
             this.navigateToPage(this.state.pages[0]);
@@ -35,7 +44,6 @@ class SideMenu extends React.Component {
     }
 
     renderMenuItems(){  
-        //console.log("this.state.connected: ", this.state.connected);
         if(this.state.connected === false)
         {
             this.state.pages = [

@@ -2,8 +2,6 @@ import React from 'react';
 
 import {
     IonPage,
-    IonTitle,
-    IonHeader,
     IonContent,
     IonGrid, 
     IonCol,
@@ -13,6 +11,8 @@ import {
 } from '@ionic/react';
 
 import store from "../redux/store";
+
+import BeautyHeader from '../components/BeautyHeader';
 
 class User extends React.Component {
     constructor(props) {
@@ -35,6 +35,7 @@ class User extends React.Component {
     render (){
         return (
            <IonPage>
+           <BeautyHeader />
                <IonContent>
                    <IonGrid>
                    { (this.state.role === 'admin') && (

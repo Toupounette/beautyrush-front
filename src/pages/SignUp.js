@@ -2,10 +2,7 @@ import React from 'react';
 
 import { 
     IonContent, 
-    IonHeader, 
     IonPage, 
-    IonTitle, 
-    IonToolbar, 
     IonInput, 
     IonItem, 
     IonButton, 
@@ -16,6 +13,8 @@ import {
     IonSelectOption,
     IonToast
      } from '@ionic/react';
+
+import BeautyHeader from '../components/BeautyHeader';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -98,6 +97,7 @@ class SignUp extends React.Component {
     render (){
         return (
         <IonPage>
+        <BeautyHeader />
             <IonContent>
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>

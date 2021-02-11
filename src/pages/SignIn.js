@@ -1,11 +1,8 @@
 import React from 'react';
 
 import { 
-    IonContent, 
-    IonHeader, 
+    IonContent,  
     IonPage, 
-    IonTitle, 
-    IonToolbar, 
     IonInput, 
     IonItem, 
     IonButton, 
@@ -18,6 +15,8 @@ import {
 
 import { connect } from 'react-redux';
 import { userAccount } from '../redux/actions';
+
+import BeautyHeader from '../components/BeautyHeader';
 
 class SignIn extends React.Component {
     constructor(props) {
@@ -102,6 +101,7 @@ class SignIn extends React.Component {
     render (){
         return (
         <IonPage>
+        <BeautyHeader />
             <IonContent>
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>

@@ -16,6 +16,8 @@ import {
  } from '@ionic/react';
 import React from 'react';
 
+import BeautyHeader from '../components/BeautyHeader';
+
 import { aperture } from 'ionicons/icons';
 
 class Home extends React.Component {
@@ -98,14 +100,17 @@ class Home extends React.Component {
   render(){
     return (
     <IonPage>
+    <BeautyHeader />
       <IonContent>
       <IonGrid>
             <IonRow>
-                <IonCol>
+                <IonCol sizeXs>
                     <IonSelect value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
                         <IonSelectOption value='byname'>Search by name</IonSelectOption>
                         <IonSelectOption value='byservice'>Search by service</IonSelectOption>
                     </IonSelect>
+                </IonCol>
+                <IonCol>
                     <IonSearchbar 
                     value={this.state.searchText} 
                     onIonChange={e => {this.setState({ searchText: e.detail.value})} }                        
