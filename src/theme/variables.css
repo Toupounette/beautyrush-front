@@ -5,6 +5,8 @@ http://ionicframework.com/docs/theming/ */
 /** Ionic CSS Variables **/
 
 :root {
+    /**font family for the app**/
+    --ion-font-family: 'Vidaloka-Regular';
     /** primary **/
     --ion-color-primary: #552299;
     --ion-color-primary-rgb: 85, 34, 153;
@@ -82,6 +84,12 @@ http://ionicframework.com/docs/theming/ */
     --ion-dark-background-color-contrast-rgb: 0, 0, 0;
     --ion-dark-background-color-shade: #c6c7c6;
     --ion-dark-background-color-tint: #e4e5e4;
+}
+
+.beautyrushapp {
+    font-family: 'Vidaloka', serif;
+    font-style: normal;
+    font-weight: normal;
 }
 
 .pics {

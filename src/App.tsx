@@ -43,7 +43,7 @@ return (
   <>
   <Router>
     <div id="app">
-      <IonApp>
+      <IonApp class='beautyrushapp'>
         <IonSplitPane contentId="main">
           <SideMenu />
           <IonPage id="main">
