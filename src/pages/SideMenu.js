@@ -9,8 +9,7 @@ import {
     IonList, 
     IonMenuToggle, 
     IonLabel, 
-    IonItem,
-    IonButton
+    IonItem
 } from "@ionic/react";
 
 import { withRouter } from 'react-router';
@@ -23,19 +22,18 @@ class SideMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        let currentState = store.getState().userAccount; 
-                
-        store.subscribe(this.handleChange);
+        let currentState = store.getState().userAccount;
 
         this.state = { 
             connected: currentState.id !== null,
             pages: [],
         	activePage: 'Home',
             history: props.history,
-        	}
+        	} 
+                
+        this.handleChange = this.handleChange.bind(this);
+        store.subscribe(this.handleChange);
     }
-
-    componentDidMount(){}
 
     handleChange(){
         let currentState = store.getState().userAccount; 
@@ -102,7 +100,7 @@ class SideMenu extends React.Component {
                     {this.renderMenuItems()}
                     {(this.state.connected === true) && (
 		     <IonMenuToggle key='Log out' auto-hide="false">
-			<IonButton
+			<IonItem button
 			    color='danger'
 			    onClick={() => {
                     this.props.log_out();
@@ -111,7 +109,7 @@ class SideMenu extends React.Component {
 			    <IonLabel>
 				Log out
 			    </IonLabel>
-			</IonButton>
+			</IonItem>
 		     </IonMenuToggle>
 		     )}
                 </IonList>

@@ -11,7 +11,9 @@ import {
     IonCol, 
     IonSelect,
     IonSelectOption,
-    IonToast } from '@ionic/react';
+    IonToast, 
+    IonLabel,
+    IonRouterLink} from '@ionic/react';
 
 import { connect } from 'react-redux';
 import { userAccount } from '../redux/actions';
@@ -107,7 +109,7 @@ class SignIn extends React.Component {
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
                             <div>
-                                <h3>Connect yourself!</h3>
+                                <h3>Connect yourself !</h3>
                             </div>
                             <div>
                                 <IonItem>
@@ -136,11 +138,22 @@ class SignIn extends React.Component {
                             message= {this.state.errorToastMessage}
                             duration={1000}
                             />
-                                <IonButton size="large" onClick={ this.handleConnection } expand="block">Connection</IonButton>
+                                <IonButton size="large" onClick={ ()=>{ this.handleConnection() } } expand="block">Connection</IonButton>
                             </div>
                         </IonCol>
                     </IonRow>
+                    <IonRow>
+                        <IonCol>
+                            <IonLabel>Do not have account ?</IonLabel>
+                        </IonCol>
+                        <IonCol>
+                            <IonRouterLink href="/signUp">                            
+                                Sign up !
+                            </IonRouterLink>
+                        </IonCol>
+                    </IonRow>
                 </IonGrid>
+                
             </IonContent>
         </IonPage >
         );

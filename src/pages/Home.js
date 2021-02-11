@@ -3,29 +3,24 @@ import {
     IonGrid,
     IonRow,
     IonCol,
-    IonButton,
     IonSearchbar,
     IonContent,
     IonSelect,
-    IonSelectOption,
-    IonCard,
-    IonItem,
-    IonIcon,
-    IonLabel,
-    IonCardContent
+    IonSelectOption
  } from '@ionic/react';
 import React from 'react';
 
 import BeautyHeader from '../components/BeautyHeader';
+import BeautyHome from '../components/BeautyHome';
+import BeautySearhcresult from '../components/BeautySearchResult';
 
-import { aperture } from 'ionicons/icons';
 
 class Home extends React.Component {
   constructor(props) {
       super(props);
 
       this.state = {
-            searchText: '',
+        searchText: '',
           searchType: 'byname',
           searchResult: []
       };
@@ -70,58 +65,40 @@ class Home extends React.Component {
             console.log("results = ", results);
             this.setState({ searchResult: results});
         }
-    } 
-
-    handleViewProviderProfile(providerId){
-        let element = document.createElement('a');
-        element.setAttribute("href", "/provider/"+providerId);
-        element.style.display = 'none';
-        document.body.appendChild(element);
-        element.click();
-        document.body.removeChild(element);
     }
-
-  renderSearchResult(){
-    return this.state.searchResult.map((provider) =>(
-        <IonCard>
-            <IonItem>
-                <IonIcon icon={aperture} slot="start" />
-                <IonLabel>{provider.name}</IonLabel>
-                <IonButton fill="outline" slot="end" onClick={() => {this.handleViewProviderProfile(provider.ID)}}>Profile</IonButton>
-          </IonItem>
-
-            <IonCardContent>
-                {provider.address}
-            </IonCardContent>
-        </IonCard>
-    ));
-  }
 
   render(){
     return (
-        <IonPage>
-            <BeautyHeader />
-            <IonContent>
-                <IonGrid>
-                    <IonRow>
-                        <IonCol sizeXs>
-                            <IonSelect value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
-                                <IonSelectOption value='byname'>Search by name</IonSelectOption>
-                                <IonSelectOption value='byservice'>Search by service</IonSelectOption>
-                            </IonSelect>
-                        </IonCol>
-                        <IonCol>
-                            <IonSearchbar 
-                            value={this.state.searchText} 
-                            onIonChange={e => {this.setState({ searchText: e.detail.value})} }                        
-                            onkeypress ={e => {this.handleSearch(e)}}
-                            />
-                        </IonCol>
-                    </IonRow>
-                </IonGrid>
-                {this.renderSearchResult()}
-            </IonContent>
-        </IonPage>
+    <IonPage>
+    <BeautyHeader />
+      <IonContent>
+      <IonGrid>
+            <IonRow>
+                <IonCol>
+                    <IonSelect value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
+                        <IonSelectOption value='byname'>Search by name</IonSelectOption>
+                        <IonSelectOption value='byservice'>Search by service</IonSelectOption>
+                    </IonSelect>
+                    <IonSearchbar 
+                    value={this.state.searchText} 
+                    onIonChange={e => {this.setState({ searchText: e.detail.value})} }                        
+                    onkeypress ={e => {this.handleSearch(e)}}
+                    ></IonSearchbar>
+                </IonCol>
+            </IonRow>
+        </IonGrid>
+        {
+            (this.state.searchResult.length === 0 ) && (
+                <BeautyHome/>
+            )
+        }
+        {
+            (this.state.searchResult.length > 0 ) && (
+                <BeautySearhcresult searchResult={this.state.searchResult} />
+            )
+        }
+        </IonContent>
+    </IonPage>
     );
   }
 };
