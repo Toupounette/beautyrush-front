@@ -9,10 +9,9 @@ import {
     IonList, 
     IonMenuToggle, 
     IonLabel, 
-    IonItem 
+    IonItem,
+    IonButton
 } from "@ionic/react";
-
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem, IonButton } from "@ionic/react";
 
 import { withRouter } from 'react-router';
 
