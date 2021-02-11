@@ -1,6 +1,5 @@
 import React from 'react';
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
 import { 
     IonMenu, 
     IonHeader, 
@@ -12,12 +11,9 @@ import {
     IonLabel, 
     IonItem 
 } from "@ionic/react";
-=======
+
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem, IonButton } from "@ionic/react";
->>>>>>> Stashed changes
-=======
-import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonMenuToggle, IonIcon, IonLabel, IonItem, IonButton } from "@ionic/react";
->>>>>>> Stashed changes
+
 import { withRouter } from 'react-router';
 
 import store from "../redux/store";
@@ -132,6 +128,7 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
 
 
 
