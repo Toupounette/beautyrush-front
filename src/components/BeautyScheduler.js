@@ -1,7 +1,8 @@
 import React from 'react';
 
-import moment from 'moment';
+import store from "../redux/store";
 
+import moment from 'moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
@@ -9,23 +10,25 @@ class BeautyScheduler extends React.Component{
     constructor(props){
         super(props);
 
-        console.log("props = ", props);
-
         this.state = {
             type: props.type,
             identifier: props.identifier
         }
     }
 
-    retrieveappointments(){
+    retrieveAppointments(){
+        const token = store.getState().userAccount.token;
         const method = "GET";
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
 
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.type + '/' + this.state.identifier +'/appointments';
-      
-        console.log("url = ", url);
-
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.type + 's/' + this.state.identifier +'/appointments';
         xhttp.open(method, url, false);
+        
+        if(token !== null)
+        {
+            xhttp.setRequestHeader("Authorization", token);
+        }
+
         xhttp.send(); 
 
         const jsonResponse = JSON.parse(xhttp.responseText);
@@ -51,9 +54,9 @@ class BeautyScheduler extends React.Component{
             },
         })
 
-        let calendar = 
+        const calendar = 
            (<Calendar
-                events={this.retrieveappointments()}
+                events={this.retrieveAppointments()}
                 views={{work_week: true, month: true}}
                 defaultDate={new Date()}
                 localizer={momentLocalizer(moment)}

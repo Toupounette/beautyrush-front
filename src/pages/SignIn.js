@@ -36,10 +36,10 @@ class SignIn extends React.Component {
     
         // XMLHttpRequest = classe js qui permet de creer des requetes http
         // new = permet de creer un objet de la classe
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
     
         // URL de la requete contruite avec les donnees du fichier .env
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path + "/login";
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path + "/login";
     
         // false en à la fin pour rendre cette methode générale asynchrone synchrone
         xhttp.open(method, url, false);
@@ -55,8 +55,8 @@ class SignIn extends React.Component {
     }
 
     handleConnection(){    
-        var email = (document.getElementById("email")  ).value;
-        var password = (document.getElementById("password")  ).value;
+        const email = (document.getElementById("email")  ).value;
+        const password = (document.getElementById("password")  ).value;
 
        let connectAccountResponse = null;
 
@@ -89,7 +89,7 @@ class SignIn extends React.Component {
             default :
             {
                 // S'il y a eu une erreur, on supprime les caracteres indesirables pour pouvoir afficher le message d'erreur
-                let formatedMessage = connectAccountResponse
+                const formatedMessage = connectAccountResponse
                                     .responseText
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 

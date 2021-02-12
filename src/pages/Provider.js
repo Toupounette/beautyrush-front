@@ -42,8 +42,8 @@ class Provider extends React.Component {
 
     getProviderServices(){
         const method = "GET";    
-        var xhttp = new XMLHttpRequest();    
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id + "/services";
+        let xhttp = new XMLHttpRequest();    
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id + "/services";
     
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
@@ -55,8 +55,8 @@ class Provider extends React.Component {
 
     getProviderInfo(){
         const method = "GET";
-        var xhttp = new XMLHttpRequest();
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id;
+        let xhttp = new XMLHttpRequest();
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id;
     
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
@@ -67,8 +67,8 @@ class Provider extends React.Component {
     }
 
     getProviderContent(){
-        let info = this.getProviderInfo()[0];
-        let services = this.getProviderServices();
+        const info = this.getProviderInfo()[0];
+        const services = this.getProviderServices();
 
         this.setState({
             info: info,
@@ -95,7 +95,7 @@ class Provider extends React.Component {
     }
 
     renderScheduler(){
-        return (<BeautyScheduler type="providers" identifier={this.state.info.ID} />);
+        return (<BeautyScheduler type="provider" identifier={this.state.info.ID} />);
     }
 
     renderOveriew(){

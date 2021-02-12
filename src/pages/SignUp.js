@@ -35,10 +35,10 @@ class SignUp extends React.Component {
     
         // XMLHttpRequest = classe js qui permet de creer des requetes http
         // new = permet de creer un objet de la classe
-        var xhttp = new XMLHttpRequest();
+        let xhttp = new XMLHttpRequest();
     
         // URL de la requete contruite avec les donnees du fichier .env
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
     
         // false en à la fin pour rendre cette methode générale asynchrone synchrone
         xhttp.open(method, url, false);
@@ -54,20 +54,20 @@ class SignUp extends React.Component {
     }
 
     handleRegister(){    
-        var name = (document.getElementById("name")  ).value;
-        var email = (document.getElementById("email")  ).value;
-        var password = (document.getElementById("password")  ).value;
+        const name = (document.getElementById("name")  ).value;
+        const email = (document.getElementById("email")  ).value;
+        const password = (document.getElementById("password")  ).value;
 
         let createAccountResponse = null;
 
         if (this.state.accountType === 'clients'){
-            var firstname = (document.getElementById("firstname")  ).value;
+            const firstname = (document.getElementById("firstname")  ).value;
 
             createAccountResponse = this.createAccount( '/clients', { 'name': name, 'firstname': firstname, 'email': email, 'password': password});
         }
         else if (this.state.accountType === 'providers'){
-            var address = (document.getElementById("address")  ).value;
-            var registration_number = (document.getElementById("registration_number")  ).value;
+            const address = (document.getElementById("address")  ).value;
+            const registration_number = (document.getElementById("registration_number")  ).value;
 
             createAccountResponse = this.createAccount( '/providers', { 'name': name, 'address': address, 'email': email, 'password': password, 'registration_number': registration_number});
         }  
@@ -84,7 +84,7 @@ class SignUp extends React.Component {
             default :
             {
                 // S'il y a eu une erreur, on supprime les caracteres indesirables pour pouvoir afficher le message d'erreur
-                let formatedMessage = createAccountResponse
+                const formatedMessage = createAccountResponse
                                     .responseText
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 
