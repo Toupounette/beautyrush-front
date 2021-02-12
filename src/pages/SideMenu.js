@@ -9,7 +9,9 @@ import {
     IonList, 
     IonMenuToggle, 
     IonLabel, 
-    IonItem
+    IonItem,
+    IonItemGroup,
+    IonItemDivider
 } from "@ionic/react";
 
 import { withRouter } from 'react-router';
@@ -22,10 +24,11 @@ class SideMenu extends React.Component {
     constructor(props) {
         super(props);
 
-        let currentState = store.getState().userAccount;
+        const currentState = store.getState().userAccount;
 
         this.state = { 
             connected: currentState.id !== null,
+            role: (currentState.role !== null ? currentState.role : ''),
             pages: [],
         	activePage: 'Home',
             history: props.history,
@@ -36,7 +39,7 @@ class SideMenu extends React.Component {
     }
 
     handleChange(){
-        let currentState = store.getState().userAccount; 
+        const currentState = store.getState().userAccount; 
         this.setState({connected: currentState.id !== null}) ;  
 
         if( this.state.connected === true){
@@ -44,37 +47,124 @@ class SideMenu extends React.Component {
         }
     }
 
+    manageBtnColor(){
+        switch( this.state.activePage){
+            case 'Comment':
+            case 'Schedule':
+            case 'Account':
+            case 'Portfolio':
+            case 'Services':
+            case 'User accounts':
+            case 'User comments':
+                {
+                    return 'primary';
+                }
+            default:
+                {
+                    return '';
+                }
+        }
+    }
+
     renderMenuItems(){  
         if(this.state.connected === false)
         {
             this.state.pages = [
-                { icon: '', title: 'Home', path: '/' },
-                { icon: '', title: 'Sign in', path: '/signIn' },
-                { icon: '', title: 'Sign up', path: '/signUp' },
-                { icon: '', title: 'About', path: '/about' },
+                { icon: '', title: 'Home', path: '/', submenu: [] },
+                { icon: '', title: 'Sign in', path: '/signIn', submenu: [] },
+                { icon: '', title: 'Sign up', path: '/signUp', submenu: [] },
+                { icon: '', title: 'About', path: '/about', submenu: [] },
                 
             ];
         }
         else
         {
+            let userSubmenu = [];
+
+            switch(this.state.role){
+                case 'admin':
+                    {
+                        userSubmenu = [
+                            { icon: '', title: 'User comments', path: '/admincomments', submenu: [] },
+                            { icon: '', title: 'User accounts', path: '/adminaccounts', submenu: [] },
+                        ] ;
+                        break;
+                    }
+                case 'client':
+                    {
+                        userSubmenu = [
+                            { icon: '', title: 'Comment', path: '/comments', submenu: [] },
+                            { icon: '', title: 'Schedule', path: '/schedule', submenu: [] },
+                            { icon: '', title: 'Account', path: '/account', submenu: [] },
+                        ] ;
+                        break;
+                    }
+                case 'provider':
+                    {
+                        userSubmenu = [
+                            { icon: '', title: 'Comment', path: '/comments', submenu: [] },
+                            { icon: '', title: 'Schedule', path: '/schedule', submenu: [] },
+                            { icon: '', title: 'Portfolio', path: '/portfolio', submenu: [] },
+                            { icon: '', title: 'Services', path: '/services', submenu: [] },
+                            { icon: '', title: 'Account', path: '/account', submenu: [] },
+                        ] ;
+                        break;
+                    }
+                default:
+                    {
+                        console.warn("Invalid role : " + this.state.role);
+                    }
+            }
+
             this.state.pages = [
-                { icon: '', title: 'Home', path: '/' },
-                { icon: '', title: 'Profile', path: '/user' },
-                { icon: '', title: 'About', path: '/about' }
+                { icon: '', title: 'Home', path: '/', submenu: [] },
+                { icon: '', title: 'Manage', path: null, submenu: userSubmenu },
+                { icon: '', title: 'About', path: '/about', submenu: [] }
                 
             ];
         }
         
         return this.state.pages.map((page) => (
-            <IonMenuToggle key={page.title} auto-hide="false">
-                <IonItem button
-                    color={page.title === this.state.activePage ? 'primary' : ''}
-                    onClick={() => this.navigateToPage(page)}>
-                    <IonLabel>
-                        {page.title}
-                    </IonLabel>
-                </IonItem>
-            </IonMenuToggle>
+            <>
+                {
+                    (page.path !== null) && (                        
+                        <IonItem button
+                        color={this.state.activePage === page.title  ? 'primary' : ''}
+                            onClick={() => this.navigateToPage(page)}>
+                            <IonLabel>
+                                {page.title}
+                            </IonLabel>
+                        </IonItem>
+                    )
+                }
+                {
+                    (page.path === null) && (
+                        <>
+                        <IonItem 
+                            button 
+                            key={page.title} 
+                            color={this.manageBtnColor()}                            
+                            onClick={() =>{ document.getElementById('submenu').hidden=false }}   
+                            >
+                            {page.title}
+                        </IonItem>
+                        <IonItemGroup id='submenu' hidden={true} submenu >                            
+                            {
+                                page.submenu.map((subpage)=>(
+                                    <IonItem submenu-item button end
+                                        color={subpage.title === this.state.activePage ? 'primary' : ''}
+                                        onClick={() => this.navigateToPage(subpage)}>
+                                        <IonLabel>
+                                            {subpage.title}
+                                        </IonLabel>
+                                    </IonItem>
+                                ))
+                            }
+                        </IonItemGroup>
+                        </>
+                    )
+                }
+            </>
         ));
     }
 
@@ -87,31 +177,23 @@ class SideMenu extends React.Component {
 
     render (){
     return (
-        <IonMenu contentId="main" class="main-menu">
-            <IonHeader>
-                <IonToolbar>
-                    <IonTitle>
-                        Menu
-                    </IonTitle>
-                </IonToolbar>
-            </IonHeader>
+        <IonMenu contentId="main" class="main-menu" auto-hide={false}>
             <IonContent>
                 <IonList>
                     {this.renderMenuItems()}
                     {(this.state.connected === true) && (
-		     <IonMenuToggle key='Log out' auto-hide="false">
-			<IonItem button
-			    color='danger'
-			    onClick={() => {
-                    this.props.log_out();
-                    this.navigateToPage(this.state.pages[0]);
-                    }} >
-			    <IonLabel>
-				Log out
-			    </IonLabel>
-			</IonItem>
-		     </IonMenuToggle>
-		     )}
+                    <IonItem  key='Log out' 
+                        button
+                        color='danger'
+                        onClick={() => {
+                            this.props.log_out();
+                            this.navigateToPage(this.state.pages[0]);
+                            }} >
+                        <IonLabel>
+                        Log out
+                        </IonLabel>
+                    </IonItem>
+                    )}
                 </IonList>
             </IonContent>
         </IonMenu>

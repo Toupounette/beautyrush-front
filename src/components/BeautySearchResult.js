@@ -6,7 +6,8 @@ import {
     IonIcon,
     IonLabel,
     IonButton,
-    IonCardContent
+    IonCardContent,
+    IonList
  } from '@ionic/react';
 
 import { aperture } from 'ionicons/icons';
@@ -16,7 +17,6 @@ class BeautySearhcresult extends React.Component{
         super(props);
 
         this.state = {
-            searchResult: props.searchResult
         };        
     }
     handleViewProviderProfile(providerId){
@@ -29,7 +29,7 @@ class BeautySearhcresult extends React.Component{
     }
 
     renderSearchResult(){
-        return this.state.searchResult.map((provider) =>(
+        return this.props.searchResult.map((provider) =>(
             <IonCard>
                 <IonItem>
                     <IonIcon icon={aperture} slot="start" />
@@ -46,9 +46,9 @@ class BeautySearhcresult extends React.Component{
 
     render(){
         return(
-            <>
+            <IonList>
             {this.renderSearchResult()}
-            </>
+            </IonList>
         );
     }
 }

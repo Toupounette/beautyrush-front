@@ -32,7 +32,7 @@ class Home extends React.Component {
   
       // XMLHttpRequest = classe js qui permet de creer des requetes http
       // new = permet de creer un objet de la classe
-      var xhttp = new XMLHttpRequest();
+      let xhttp = new XMLHttpRequest();
   
       // Le chemin (path) est defini en fonction du type de recherche
       let path ="";
@@ -46,7 +46,7 @@ class Home extends React.Component {
       }
   
       // URL de la requete contruite avec les donnees du fichier .env
-      let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
+      const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + path;
       
       // false en à la fin pour rendre cette methode générale asynchrone synchrone
       xhttp.open(method, url, false);
@@ -62,8 +62,8 @@ class Home extends React.Component {
         if (e.key === "Enter" && this.state.searchText.length > 2)
         {   
             const results = this.search( );
-            console.log("results = ", results);
             this.setState({ searchResult: results});
+            this.forceUpdate();
         }
     }
 
@@ -75,7 +75,7 @@ class Home extends React.Component {
       <IonGrid>
             <IonRow>
                 <IonCol>
-                    <IonSelect value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
+                    <IonSelect sizeXs  value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
                         <IonSelectOption value='byname'>Search by name</IonSelectOption>
                         <IonSelectOption value='byservice'>Search by service</IonSelectOption>
                     </IonSelect>
