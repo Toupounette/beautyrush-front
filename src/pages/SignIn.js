@@ -109,7 +109,7 @@ class SignIn extends React.Component {
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
                             <div>
-                                <h3>Connect yourself !</h3>
+                                <h3>Rush to your account and Beautify yourself !</h3>
                             </div>
                             <div>
                                 <IonItem>
@@ -144,11 +144,11 @@ class SignIn extends React.Component {
                     </IonRow>
                     <IonRow>
                         <IonCol>
-                            <IonLabel>Do not have account ?</IonLabel>
+                            <IonLabel>Not on Beauty Rush yet ?</IonLabel>
                         </IonCol>
                         <IonCol>
                             <IonRouterLink href="/signUp">                            
-                                Sign up !
+                                Sign up here!
                             </IonRouterLink>
                         </IonCol>
                     </IonRow>
@@ -164,6 +164,7 @@ export default connect(
     null,
     {userAccount}
 ) (SignIn);
+
 
 
 
