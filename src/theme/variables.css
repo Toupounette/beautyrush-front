@@ -86,25 +86,38 @@ http://ionicframework.com/docs/theming/ */
     --ion-dark-background-color-tint: #e4e5e4;
 }
 
-.beautyrushapp {
-    font-family: 'Vidaloka', serif;
-    font-style: normal;
-    font-weight: normal;
+.beautyheader {
+    --ion-background-color: #552299;
+    --ion-background-color-rgb: 85, 34, 153;
+    --ion-background-color-contrast: #ffffff;
+    --ion-background-color-contrast-rgb: 255, 255, 255;
+    --ion-background-color-shade: #4b1e87;
+    --ion-background-color-tint: #6638a3;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-text-color-contrast: #000000;
+    --ion-text-color-contrast-rgb: 0, 0, 0;
+    --ion-text-color-shade: #e0e0e0;
+    --ion-text-color-tint: #ffffff;
+}
+
+.logo{
+	--ion-content-size : 20%;
 }
 
 .pics {
-    --ion-background-color: #6ffffb;
-    --ion-background-color-rgb: 111, 255, 251;
+    --ion-background-color: #552299;
+    --ion-background-color-rgb: 85, 34, 153;
     --ion-background-color-contrast: #000000;
-    --ion-background-color-contrast-rgb: 0, 0, 0;
-    --ion-background-color-shade: #62e0dd;
-    --ion-background-color-tint: #7dfffb;
-    --ion-text-color: #000000;
-    --ion-text-color-rgb: 0, 0, 0;
-    --ion-text-color-contrast: #ffffff;
-    --ion-text-color-contrast-rgb: 255, 255, 255;
-    --ion-text-color-shade: #000000;
-    --ion-text-color-tint: #1a1a1a;
+    --ion-background-color-contrast-rgb: 255, 255, 255;
+    --ion-background-color-shade: #4b1e87;
+    --ion-background-color-tint: #6638a3;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-text-color-contrast: #000000;
+    --ion-text-color-contrast-rgb: 0, 0, 0;
+    --ion-text-color-shade: #e0e0e0;
+    --ion-text-color-tint: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
