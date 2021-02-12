@@ -6,7 +6,9 @@ import {
     IonRow,
     IonImg,
     IonMenuButton,
-    IonButton
+    IonButton,
+    IonThumbnail,
+    IonItem
  } from '@ionic/react';
 
 class BeautyHeader extends React.Component{
@@ -18,13 +20,17 @@ class BeautyHeader extends React.Component{
     render(){
         return(
             <>
-            <IonHeader>
+            <IonHeader class="beautyheader">
                 <IonToolbar>  
                     <IonRow>
                         <IonMenuButton/>
-                        <IonTitle>BeautyRush</IonTitle>   
-                        <IonButton shape="round" fill="clear" href="/">                            
-                            <IonImg src='assets/logo192.png' />
+                          
+                        <IonButton shape="round" fill="clear" href="/"> 
+                        	<IonItem>
+                        		<IonThumbnail>                         
+                            		<IonImg class="logo" src='assets/img/logo512wobg.png' />
+                            	</IonThumbnail> 
+                            </IonItem> 
                         </IonButton>
                     </IonRow>
                 </IonToolbar>
@@ -35,3 +41,4 @@ class BeautyHeader extends React.Component{
 }
 
 export default BeautyHeader;
+
