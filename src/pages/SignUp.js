@@ -103,7 +103,7 @@ class SignUp extends React.Component {
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
                             <div >
-                                <h3>Create your account!</h3>
+                                <h3>Create your account !</h3>
                             </div>
                             <div>
                                 <IonItem>

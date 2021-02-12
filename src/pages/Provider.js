@@ -135,7 +135,7 @@ class Provider extends React.Component {
                         <IonGrid>
                             <IonRow>
                                 <IonCol>
-                                    <IonTitle>Overwies</IonTitle>
+                                    <IonTitle>Overview</IonTitle>
                                     {this.renderOveriew()}
                                 </IonCol>
                             </IonRow>
