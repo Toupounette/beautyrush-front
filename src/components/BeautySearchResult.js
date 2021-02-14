@@ -12,6 +12,8 @@ import {
 
 import { aperture } from 'ionicons/icons';
 
+
+
 class BeautySearhcresult extends React.Component{
     constructor(props){
         super(props);
