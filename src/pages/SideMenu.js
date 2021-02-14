@@ -11,8 +11,23 @@ import {
     IonLabel, 
     IonItem,
     IonItemGroup,
-    IonItemDivider
+    IonItemDivider,
+    IonIcon
 } from "@ionic/react";
+
+import { 
+    home,
+    logOut,
+    create,
+    informationCircle,
+    chatbox,
+    person,
+    cog,
+    images,
+    calendar,
+    colorWand,
+    logIn
+ } from 'ionicons/icons';
 
 import { withRouter } from 'react-router';
 
@@ -70,10 +85,10 @@ class SideMenu extends React.Component {
         if(this.state.connected === false)
         {
             this.state.pages = [
-                { icon: '', title: 'Home', path: '/', submenu: [] },
-                { icon: '', title: 'Sign in', path: '/signIn', submenu: [] },
-                { icon: '', title: 'Sign up', path: '/signUp', submenu: [] },
-                { icon: '', title: 'About', path: '/about', submenu: [] },
+                { title: 'Home', path: '/', icon: home, submenu: [] },
+                { title: 'Sign in', path: '/signIn', icon: logIn, submenu: [] },
+                { title: 'Sign up', path: '/signUp', icon: create, submenu: [] },
+                { title: 'About', path: '/about', icon: informationCircle, submenu: [] },
                 
             ];
         }
@@ -85,28 +100,28 @@ class SideMenu extends React.Component {
                 case 'admin':
                     {
                         userSubmenu = [
-                            { icon: '', title: 'User comments', path: '/admincomments', submenu: [] },
-                            { icon: '', title: 'User accounts', path: '/adminaccounts', submenu: [] },
+                            { title: 'User comments', path: '/admincomments', icon: chatbox, submenu: [] },
+                            { title: 'User accounts', path: '/adminaccounts', icon: person, submenu: [] },
                         ] ;
                         break;
                     }
                 case 'client':
                     {
                         userSubmenu = [
-                            { icon: '', title: 'Comment', path: '/comments', submenu: [] },
-                            { icon: '', title: 'Schedule', path: '/schedule', submenu: [] },
-                            { icon: '', title: 'Account', path: '/account', submenu: [] },
+                            { title: 'Comment', path: '/comments', icon: chatbox, submenu: [] },
+                            { title: 'Schedule', path: '/schedule', icon: calendar, submenu: [] },
+                            { title: 'Account', path: '/account', icon: person, submenu: [] },
                         ] ;
                         break;
                     }
                 case 'provider':
                     {
                         userSubmenu = [
-                            { icon: '', title: 'Comment', path: '/comments', submenu: [] },
-                            { icon: '', title: 'Schedule', path: '/schedule', submenu: [] },
-                            { icon: '', title: 'Portfolio', path: '/portfolio', submenu: [] },
-                            { icon: '', title: 'Services', path: '/services', submenu: [] },
-                            { icon: '', title: 'Account', path: '/account', submenu: [] },
+                            { title: 'Comment', path: '/comments', icon: chatbox, submenu: [] },
+                            { title: 'Schedule', path: '/schedule', icon: calendar, submenu: [] },
+                            { title: 'Portfolio', path: '/portfolio', icon: images, submenu: [] },
+                            { ititle: 'Services', path: '/services', con: colorWand, submenu: [] },
+                            { title: 'Account', path: '/account', icon: person, submenu: [] },
                         ] ;
                         break;
                     }
@@ -117,9 +132,9 @@ class SideMenu extends React.Component {
             }
 
             this.state.pages = [
-                { icon: '', title: 'Home', path: '/', submenu: [] },
-                { icon: '', title: 'Manage', path: null, submenu: userSubmenu },
-                { icon: '', title: 'About', path: '/about', submenu: [] }
+                { title: 'Home', path: '/', icon: home, submenu: [] },
+                {title: 'Manage', path: null, icon: cog,  submenu: userSubmenu },
+                { title: 'About', path: '/about', icon: informationCircle, submenu: [] }
                 
             ];
         }
@@ -128,9 +143,10 @@ class SideMenu extends React.Component {
             <>
                 {
                     (page.path !== null) && (                        
-                        <IonItem button
+                        <IonItem button           
                         color={this.state.activePage === page.title  ? 'primary' : ''}
-                            onClick={() => this.navigateToPage(page)}>
+                            onClick={() => this.navigateToPage(page)}>             
+                            <IonIcon icon={page.icon}  />
                             <IonLabel>
                                 {page.title}
                             </IonLabel>
@@ -144,9 +160,11 @@ class SideMenu extends React.Component {
                             button 
                             key={page.title} 
                             color={this.manageBtnColor()}                            
-                            onClick={() =>{ document.getElementById('submenu').hidden=false }}   
-                            >
-                            {page.title}
+                            onClick={() =>{ document.getElementById('submenu').hidden=false }}   >  
+                            <IonLabel>
+                            <IonIcon icon={page.icon}/>
+                                {page.title}
+                            </IonLabel>
                         </IonItem>
                         <IonItemGroup id='submenu' hidden={true} submenu >                            
                             {
@@ -154,6 +172,7 @@ class SideMenu extends React.Component {
                                     <IonItem submenu-item button end
                                         color={subpage.title === this.state.activePage ? 'primary' : ''}
                                         onClick={() => this.navigateToPage(subpage)}>
+                                            <IonIcon icon={subpage.icon}/>
                                         <IonLabel>
                                             {subpage.title}
                                         </IonLabel>
@@ -189,6 +208,7 @@ class SideMenu extends React.Component {
                             this.props.log_out();
                             this.navigateToPage(this.state.pages[0]);
                             }} >
+                            <IonIcon icon={logOut}/>
                         <IonLabel>
                         Log out
                         </IonLabel>
@@ -207,6 +227,11 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
+
+
+
+
 
 
 
