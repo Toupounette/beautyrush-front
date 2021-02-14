@@ -24,7 +24,7 @@ class Scheduler extends React.Component{
             <IonPage>
                 <BeautyHeader />
                 <IonContent>
-                    <BeautyScheduler type={this.state.role} identifier={this.state.userId} />
+                    <BeautyScheduler role={this.state.role} identifier={this.state.userId} />
                 </IonContent>
             </IonPage>
         );

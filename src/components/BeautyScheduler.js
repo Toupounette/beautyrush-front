@@ -11,7 +11,7 @@ class BeautyScheduler extends React.Component{
         super(props);
 
         this.state = {
-            type: props.type,
+            role: props.role,
             identifier: props.identifier
         }
     }
@@ -21,7 +21,7 @@ class BeautyScheduler extends React.Component{
         const method = "GET";
         let xhttp = new XMLHttpRequest();
 
-        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.type + 's/' + this.state.identifier +'/appointments';
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier +'/appointments';
         xhttp.open(method, url, false);
         
         if(token !== null)

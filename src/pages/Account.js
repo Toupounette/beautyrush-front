@@ -1,21 +1,22 @@
 import React from 'react';
 
-import{
-    IonPage,
-    IonContent
-} from '@ionic/react'
+import store from '../redux/store';
 
-import store from "../redux/store";
+import { 
+    IonContent, 
+    IonPage 
+} from '@ionic/react';
 
+import BeautyAccount from '../components/BeautyAccount';
 import BeautyHeader from '../components/BeautyHeader';
-import BeautyComments from '../components/BeautyComments';
 
-class Comments extends React.Component{
+class Account extends React.Component{
     constructor(props){
         super(props);
+
         this.state = {
             role : store.getState().userAccount.role,
-            userId : store.getState().userAccount.id
+            userId : store.getState().userAccount.id            
         }
     }
 
@@ -24,11 +25,11 @@ class Comments extends React.Component{
             <IonPage>
                 <BeautyHeader />
                 <IonContent>
-                    <BeautyComments role={this.state.role} identifier={this.state.userId} />
+                    <BeautyAccount role={this.state.role} identifier={this.state.userId} />
                 </IonContent>
             </IonPage>
         );
     }
 }
 
-export default Comments;
+export default Account;

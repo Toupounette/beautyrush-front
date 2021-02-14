@@ -12,6 +12,7 @@ import User from './pages/User';
 import Provider from './pages/Provider';
 import Scheduler from './pages/Scheduler';
 import Comments from './pages/Comments';
+import Account from './pages/Account';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -87,7 +88,7 @@ return (
               {
                 (this.state.connected === true && this.state.role !== 'admin') && (
                   <>
-                    <Route path="/account" component={User} exact={true} />
+                    <Route path="/account" component={Account} exact={true} />
                     <Route path="/comments" component={Comments} exact={true} />
                     <Route path="/schedule" component={Scheduler} exact={true} />
                     {

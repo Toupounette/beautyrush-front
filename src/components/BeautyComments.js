@@ -18,7 +18,7 @@ class BeautyComments extends React.Component{
         super(props);
 
         this.state = {
-            type: props.type,
+            role: props.role,
             identifier: props.identifier,
             token : store.getState().userAccount.token,
             comments : []
@@ -31,7 +31,7 @@ class BeautyComments extends React.Component{
         const method = "DELETE";
         let xhttp = new XMLHttpRequest();
 
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.type + 's/' + this.state.identifier +'/comments/' + commentId;
+        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier +'/comments/' + commentId;
         xhttp.open(method, url, false);
         
         if(this.state.token !== null)
@@ -73,7 +73,7 @@ class BeautyComments extends React.Component{
         const method = "GET";
         let xhttp = new XMLHttpRequest();
 
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.type + 's/' + this.state.identifier +'/comments';
+        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier +'/comments';
         xhttp.open(method, url, false);
         
         if(this.state.token !== null)
@@ -97,7 +97,7 @@ class BeautyComments extends React.Component{
                     </IonCardHeader>
                     <IonTextarea value={comment.comment} autocapitalize readonly='true' disabled='false' inputmode='text' maxlength='250' />
                     {
-                        (this.state.type !== 'provider') && (
+                        (this.state.role !== 'provider') && (
                             <IonFooter>
                                 <IonToolbar>
                                     <IonButton id={'save_' + comment.ID} color="warning" onClick={()=>{this.handleSaveComment(comment.ID)}} size={1} style={{display:'none'}} >Save</IonButton>
