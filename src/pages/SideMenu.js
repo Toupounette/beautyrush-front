@@ -120,7 +120,7 @@ class SideMenu extends React.Component {
                             { title: 'Comment', path: '/comments', icon: chatbox, submenu: [] },
                             { title: 'Schedule', path: '/schedule', icon: calendar, submenu: [] },
                             { title: 'Portfolio', path: '/portfolio', icon: images, submenu: [] },
-                            { ititle: 'Services', path: '/services', con: colorWand, submenu: [] },
+                            { title: 'Services', path: '/services', icon: colorWand, submenu: [] },
                             { title: 'Account', path: '/account', icon: person, submenu: [] },
                         ] ;
                         break;
