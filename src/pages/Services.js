@@ -1,35 +1,35 @@
 import React from 'react';
 
-import{
+import {
     IonPage,
     IonContent
 } from '@ionic/react';
 
 import store from "../redux/store";
 
+import BeautyServices from "../components/BeautyServices";
 import BeautyHeader from '../components/BeautyHeader';
-import BeautyScheduler from '../components/BeautyScheduler';
 
-class Scheduler extends React.Component{
+class Services extends React.Component{
     constructor(props){
         super(props);
-        
+
         this.state = {
             role : store.getState().userAccount.role,
-            userId : store.getState().userAccount.id
+            identifier : store.getState().userAccount.id
         }
     }
 
     render(){
         return(
             <IonPage>
-                <BeautyHeader />
+                <BeautyHeader/>
                 <IonContent>
-                    <BeautyScheduler role={this.state.role} identifier={this.state.userId} />
+                    <BeautyServices role={this.state.role} identifier={this.state.identifier} />
                 </IonContent>
             </IonPage>
         );
     }
 }
 
-export default Scheduler;
+export default Services;

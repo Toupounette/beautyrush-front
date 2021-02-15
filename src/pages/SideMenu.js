@@ -2,16 +2,11 @@ import React from 'react';
 
 import { 
     IonMenu, 
-    IonHeader, 
-    IonToolbar, 
-    IonTitle, 
     IonContent, 
     IonList, 
-    IonMenuToggle, 
     IonLabel, 
     IonItem,
     IonItemGroup,
-    IonItemDivider,
     IonIcon
 } from "@ionic/react";
 
@@ -100,7 +95,7 @@ class SideMenu extends React.Component {
                 case 'admin':
                     {
                         userSubmenu = [
-                            { title: 'User comments', path: '/admincomments', icon: chatbox, submenu: [] },
+                            { title: 'User comments', path: '/admincomments', icon: chatbox , submenu: [] },
                             { title: 'User accounts', path: '/adminaccounts', icon: person, submenu: [] },
                         ] ;
                         break;
@@ -145,11 +140,11 @@ class SideMenu extends React.Component {
                     (page.path !== null) && (                        
                         <IonItem button           
                         color={this.state.activePage === page.title  ? 'primary' : ''}
-                            onClick={() => this.navigateToPage(page)}>             
-                            <IonIcon icon={page.icon}  />
+                            onClick={() => this.navigateToPage(page)}>    
                             <IonLabel>
                                 {page.title}
-                            </IonLabel>
+                            </IonLabel>         
+                            <IonIcon icon={page.icon}/>
                         </IonItem>
                     )
                 }
@@ -162,9 +157,9 @@ class SideMenu extends React.Component {
                             color={this.manageBtnColor()}                            
                             onClick={() =>{ document.getElementById('submenu').hidden=false }}   >  
                             <IonLabel>
-                            <IonIcon icon={page.icon}/>
                                 {page.title}
                             </IonLabel>
+                            <IonIcon icon={page.icon}/>
                         </IonItem>
                         <IonItemGroup id='submenu' hidden={true} submenu >                            
                             {
@@ -172,10 +167,10 @@ class SideMenu extends React.Component {
                                     <IonItem submenu-item button end
                                         color={subpage.title === this.state.activePage ? 'primary' : ''}
                                         onClick={() => this.navigateToPage(subpage)}>
-                                            <IonIcon icon={subpage.icon}/>
                                         <IonLabel>
                                             {subpage.title}
                                         </IonLabel>
+                                        <IonIcon icon={subpage.icon}/>
                                     </IonItem>
                                 ))
                             }
@@ -208,10 +203,10 @@ class SideMenu extends React.Component {
                             this.props.log_out();
                             this.navigateToPage(this.state.pages[0]);
                             }} >
-                            <IonIcon icon={logOut}/>
                         <IonLabel>
-                        Log out
+                            Log out
                         </IonLabel>
+                        <IonIcon class="pics" icon={logOut}/>
                     </IonItem>
                     )}
                 </IonList>

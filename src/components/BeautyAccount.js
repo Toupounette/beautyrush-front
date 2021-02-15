@@ -2,12 +2,13 @@ import {
     IonInput, 
     IonItem, 
     IonLabel, 
-    IonList,
     IonButton,
-    IonFooter
+    IonFooter,
+    IonToast,
+    IonContent
 } from '@ionic/react';
 
- import React, { cloneElement } from 'react';
+import React from 'react';
 
 import store from '../redux/store';
 
@@ -19,15 +20,17 @@ class BeautyAccount extends React.Component{
             role: props.role,
             identifier: props.identifier,
             token : store.getState().userAccount.token,
-            accountData : null
-        }
+            accountData : null,
+            showToastSucces : false,
+            showToastError : false
+        };
     }
 
     retrieveAcountData(){
         const method = "GET";
         let xhttp = new XMLHttpRequest();
 
-        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier ;
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier ;
         xhttp.open(method, url, false);
         
         if(this.state.token !== null)
@@ -35,8 +38,7 @@ class BeautyAccount extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send(); 
-
+        xhttp.send();
         this.state.accountData = JSON.parse(xhttp.responseText)[0];
     }
 
@@ -74,14 +76,12 @@ class BeautyAccount extends React.Component{
         const saveDataResponse = this.saveData(reconstructedData);
 
         if(saveDataResponse.status === 200){
-            console.log("OK");
-            // TODO : Toupounette : activer un taost de succes (comme dans signIn)
+            this.setState({ showToastSuccess : true });
             this.forceUpdate();
         }
         else{
-            // TODO : Toupounette : activer un taost d'erreur (comme dans signIn)         
+            this.setState({  showToastError : true });           
         }
-        
     }
 
     renderAcountData(){
@@ -102,19 +102,28 @@ class BeautyAccount extends React.Component{
                 </IonItem>
             );
         }
-
-
         return  accountDataList;
     }
 
     render(){
         return(
-            <>
+            <IonContent>
                  {this.renderAcountData()}
-                <IonFooter>
-                    <IonButton onClick={()=>{this.handleUpdate()}} color='warning'>Update</IonButton>
-                </IonFooter>
-            </>
+                 <IonButton onClick={()=>{this.handleUpdate()}} color='warning'>Update</IonButton>
+                    
+                 <IonToast color="success"
+                    isOpen={this.state.showToastSuccess}
+                    onDidDismiss={() => this.setState({ showToastSuccess : false })}
+                    message="Your account has been successfully updated"
+                    duration={1000}
+                    />
+                    <IonToast color="danger"
+                    isOpen={this.state.showToastError}
+                    onDidDismiss={() => this.setState({ showToastError : false })}
+                    message= "Sorry, an error occurred."
+                    duration={1000}
+                    />
+            </IonContent>
         );
     }
 }

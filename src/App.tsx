@@ -13,6 +13,7 @@ import Provider from './pages/Provider';
 import Scheduler from './pages/Scheduler';
 import Comments from './pages/Comments';
 import Account from './pages/Account';
+import Services from './pages/Services';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -95,7 +96,7 @@ return (
                       (this.state.role === 'provider') && (
                         <>                        
                           <Route path="/portfolio" component={User} exact={true} />
-                          <Route path="/services" component={User} exact={true} />
+                          <Route path="/services" component={Services} exact={true} />
                         </>
                       )
                     }
