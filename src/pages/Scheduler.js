@@ -21,11 +21,21 @@ class Scheduler extends React.Component{
     }
 
     render(){
+        let calendarType = null;
+
+        if(this.state.role === 'client')
+        {
+            calendarType = 'clientAccount';
+        }
+        else if (this.state.role === 'provider')
+        {
+            calendarType = 'providerAccount';
+        }
         return(
             <IonPage>
                 <BeautyHeader />
                 <IonContent>
-                    <BeautyScheduler role={this.state.role} identifier={this.state.userId} />
+                    <BeautyScheduler role={this.state.role} identifier={this.state.userId} calendarType={calendarType} />
                 </IonContent>
             </IonPage>
         );

@@ -25,7 +25,7 @@ class BeautyScheduler extends React.Component{
         this.state = {
             role: props.role,
             identifier: props.identifier,
-            clientToProvider: props.clientToProvider,
+            calendarType: (props.calendarType !== undefined) ? props.calendarType : null,
             providerServices: props.providerServices,
             providerInfo: props.providerInfo,
             appointmentDetail:{
@@ -78,11 +78,12 @@ class BeautyScheduler extends React.Component{
 
     handleShowAppointment(event){
         // Anonymous user cannot see apppointment detail
-        if(this.state.identifier === null)
+        // complexifier le if pour masquer les details du rdv pour les clients et autres providers
+        if(! this.isAllowedToSeeDetails())
         {
             return
         }
-
+        
         this.setState({
             appointmentDetail:{
                 show: true,
@@ -94,7 +95,7 @@ class BeautyScheduler extends React.Component{
 
     handleAddAppointment(eventSlot){
         // Non-client user cannot schedule a apppointment
-        if(this.state.clientToProvider === false)
+        if(! this.isAllowedToAddAppointment())
         {
             return
         }
@@ -111,7 +112,7 @@ class BeautyScheduler extends React.Component{
 
     handleSaveAppointment(){
         // Non-client user cannot schedule a apppointment
-        if(this.state.clientToProvider === false)
+        if(! this.isAllowedToAddAppointment())
         {
             return
         }
@@ -155,6 +156,35 @@ class BeautyScheduler extends React.Component{
         })
     }
 
+    isAllowedToAddAppointment(){
+        switch (this.state.calendarType)
+        {
+            case 'clientSearchResult': {
+                return true;
+            }
+            case 'clientAccount': 
+            case 'providerAccount': 
+            default : {
+                return false;
+            }
+        }
+    }
+    
+    isAllowedToSeeDetails(){
+        if(this.state.role === 'client' && this.state.calendarType === 'clientAccount')
+        {
+            return true;
+        }
+        else if(this.state.role === 'provider' && this.state.calendarType === 'providerAccount')
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
     renderServicesSelect(){
         return this.state.providerServices.map((service)=>(
             <IonSelectOption value={service.id}>{service.title}</IonSelectOption>
@@ -194,26 +224,31 @@ class BeautyScheduler extends React.Component{
                 header={this.state.appointmentDetail.header}
                 message={this.state.appointmentDetail.message}
              />
-             <IonModal
-                isOpen={this.state.newAppointment.show}
-                swipeToClose={true}
-                onDidDismiss={this.handleExitModal}
-             >
-                 <IonLabel>Book {this.state.providerInfo.name} for</IonLabel>
-                 <IonSelect id='user_service_selected'  aria-required onIonChange={(event) => {console.log('event', event)}}  >
-                     {this.renderServicesSelect()}
-                 </IonSelect>
-                 <IonLabel>on</IonLabel>
-                 <IonItem>
-                    <IonDatetime id='user_date_selected' value={this.state.newAppointment.selectedMoment} displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" ></IonDatetime>
-                    <IonLabel>at</IonLabel>
-                    <IonDatetime id='user_time_selected' value={this.state.newAppointment.selectedMoment} displayFormat="HH:mm" pickerFormat="HH:mm" ></IonDatetime>
-                    </IonItem>
-                 <IonToolbar>                     
-                    <IonButton onClick={this.handleExitModal} color='warning' >Cancel</IonButton>
-                    <IonButton onClick={this.handleSaveAppointment} color='success' >Validate</IonButton>
-                 </IonToolbar>
-             </IonModal>
+             { 
+                (this.state.calendarType === 'clientSearchResult') && (
+                    <IonModal
+                    isOpen={this.state.newAppointment.show}
+                    swipeToClose={true}
+                    onDidDismiss={this.handleExitModal}
+                 >
+                     <IonLabel>Book {this.state.providerInfo.name} for</IonLabel>
+                     <IonSelect id='user_service_selected'  aria-required onIonChange={(event) => {console.log('event', event)}}  >
+                         {this.renderServicesSelect()}
+                     </IonSelect>
+                     <IonLabel>on</IonLabel>
+                     <IonItem>
+                        <IonDatetime id='user_date_selected' value={this.state.newAppointment.selectedMoment} displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" ></IonDatetime>
+                        <IonLabel>at</IonLabel>
+                        <IonDatetime id='user_time_selected' value={this.state.newAppointment.selectedMoment} displayFormat="HH:mm" pickerFormat="HH:mm" ></IonDatetime>
+                        </IonItem>
+                     <IonToolbar>                     
+                        <IonButton onClick={this.handleExitModal} color='warning' >Cancel</IonButton>
+                        <IonButton onClick={this.handleSaveAppointment} color='success' >Validate</IonButton>
+                     </IonToolbar>
+                 </IonModal> 
+                )
+             }
+             
          </IonContent>
        );
     }
