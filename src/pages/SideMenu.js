@@ -7,7 +7,8 @@ import {
     IonLabel, 
     IonItem,
     IonItemGroup,
-    IonIcon
+    IonIcon,
+    IonMenuToggle
 } from "@ionic/react";
 
 import { 
@@ -191,24 +192,25 @@ class SideMenu extends React.Component {
 
     render (){
     return (
-        <IonMenu contentId="main" class="main-menu" auto-hide={false}>
+        <IonMenu contentId="main" class="main-menu" >
             <IonContent>
                 <IonList>
-                    {this.renderMenuItems()}
-                    {(this.state.connected === true) && (
-                    <IonItem  key='Log out' 
-                        button
-                        color='danger'
-                        onClick={() => {
-                            this.props.log_out();
-                            this.navigateToPage(this.state.pages[0]);
-                            }} >
-                        <IonLabel>
-                            Log out
-                        </IonLabel>
-                        <IonIcon class="pics" icon={logOut}/>
-                    </IonItem>
-                    )}
+                        {this.renderMenuItems()}
+                        {(this.state.connected === true) && (
+                        <IonItem  key='Log out' 
+                            button
+                            toggle
+                            color='danger'
+                            onClick={() => {
+                                this.props.log_out();
+                                this.navigateToPage(this.state.pages[0]);
+                                }} >
+                            <IonLabel>
+                                Log out
+                            </IonLabel>
+                            <IonIcon class="pics" icon={logOut}/>
+                        </IonItem>
+                        )}
                 </IonList>
             </IonContent>
         </IonMenu>

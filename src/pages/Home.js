@@ -21,7 +21,7 @@ class Home extends React.Component {
 
       this.state = {
         searchText: '',
-          searchType: 'byname',
+          searchType: 'byservice',
           searchResult: []
       };
   }
@@ -76,8 +76,8 @@ class Home extends React.Component {
             <IonRow>
                 <IonCol>
                     <IonSelect sizeXs  value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
-                        <IonSelectOption value='byname'>Search by name</IonSelectOption>
                         <IonSelectOption value='byservice'>Search by service</IonSelectOption>
+                        <IonSelectOption value='byname'>Search by name</IonSelectOption>
                     </IonSelect>
                     <IonSearchbar 
                     value={this.state.searchText} 

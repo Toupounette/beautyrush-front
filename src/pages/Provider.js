@@ -17,6 +17,8 @@ import {
     IonImg
 } from '@ionic/react';
 
+import store from "../redux/store";
+
 import { aperture } from 'ionicons/icons';
 
 import BeautyScheduler from '../components/BeautyScheduler';
@@ -38,6 +40,11 @@ class Provider extends React.Component {
             comments : [],
             schedule : null
         }
+    }
+
+    isClientToProvider(){
+        const role = store.getState().userAccount.role;
+        return (role === 'client');
     }
 
     getProviderServices(){
@@ -95,7 +102,14 @@ class Provider extends React.Component {
     }
 
     renderScheduler(){
-        return (<BeautyScheduler type="provider" identifier={this.state.info.ID} />);
+        return (
+            <BeautyScheduler 
+                role="provider" 
+                identifier={this.state.info.ID} 
+                clientToProvider={this.isClientToProvider()} 
+                providerServices={this.state.services}
+                providerInfo={this.state.info}
+            />);
     }
 
     renderOveriew(){
@@ -131,30 +145,21 @@ class Provider extends React.Component {
                             {this.renderSlides()}
                         </IonSlides>
                     </IonItem>
-                    <IonItem>
-                        <IonGrid>
-                            <IonRow>
-                                <IonCol>
+                <IonItem>  
                                     <IonTitle>Overview</IonTitle>
                                     {this.renderOveriew()}
-                                </IonCol>
-                            </IonRow>
-                            <IonRow>
-                                <IonCol>
+                </IonItem> 
+                <IonItem>  
                                     <IonTitle>Services</IonTitle>
                                     {this.renderServices()}
-                                </IonCol>
-                                <IonCol >
+                </IonItem>   
+                <IonContent>  
                                     {this.renderScheduler()}
-                                </IonCol>
-                            </IonRow>
-                            <IonRow>
-                                <IonCol>
+                </IonContent>  
+                <IonItem>  
                                     <IonTitle>Comments</IonTitle>
-                                </IonCol>
-                            </IonRow>
-                        </IonGrid>
-                    </IonItem>
+                </IonItem>  
+
                 </IonContent>
             </IonPage>
         )

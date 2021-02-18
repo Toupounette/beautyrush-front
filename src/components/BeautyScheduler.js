@@ -5,6 +5,18 @@ import store from "../redux/store";
 import moment from 'moment';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { 
+    IonContent, 
+    IonModal,
+    IonLabel,
+    IonAlert,
+    IonButton,
+    IonToolbar,
+    IonSelect,
+    IonSelectOption,
+    IonItem,
+    IonDatetime
+} from '@ionic/react';
 
 class BeautyScheduler extends React.Component{
     constructor(props){
@@ -12,8 +24,26 @@ class BeautyScheduler extends React.Component{
 
         this.state = {
             role: props.role,
-            identifier: props.identifier
+            identifier: props.identifier,
+            clientToProvider: props.clientToProvider,
+            providerServices: props.providerServices,
+            providerInfo: props.providerInfo,
+            appointmentDetail:{
+                show: false,
+                header: '',
+                message: ''
+            },
+            newAppointment:{
+                show: false,
+                selectedService: null,
+                selectedMoment: null
+            }
         }
+
+        this.handleShowAppointment = this.handleShowAppointment.bind(this);
+        this.handleAddAppointment = this.handleAddAppointment.bind(this);
+        this.handleSaveAppointment = this.handleSaveAppointment.bind(this);
+        this.handleExitModal = this.handleExitModal.bind(this);
     }
 
     retrieveAppointments(){
@@ -44,7 +74,92 @@ class BeautyScheduler extends React.Component{
         ));
 
         return appointments;
-    }    
+    }
+
+    handleShowAppointment(event){
+        // Anonymous user cannot view apppointment detail
+        if(this.state.identifier === null)
+        {
+            return
+        }
+
+        this.setState({
+            appointmentDetail:{
+                show: true,
+                header: moment(event.start).format('DD/MM/YYYY HH:mm'),
+                message: event.title
+            }
+        });
+    }
+
+    handleAddAppointment(eventSlot){
+        // Non-client user cannot schedule a apppointment
+        if(this.state.clientToProvider === false)
+        {
+            return
+        }
+
+        let presumedSlot = moment(eventSlot.start).add(10, 'hours')
+        
+        this.setState({
+            newAppointment:{
+                show: true,
+                selectedMoment: presumedSlot.format('DD/MM/YYYY HH:mm')
+            }
+        });
+    }
+
+    handleSaveAppointment(){
+        // Non-client user cannot schedule a apppointment
+        if(this.state.clientToProvider === false)
+        {
+            return
+        }
+
+        const date_selected = (document.getElementById("user_date_selected")).value;
+        const time_selected = (document.getElementById("user_time_selected")).value;
+        const appointmentMoment = moment(date_selected + " " + time_selected)
+        console.log("appointmentMoment = ", appointmentMoment);
+        const appointmentData = {
+            moment: appointmentMoment,
+            service_id: (document.getElementById("user_service_selected")).value,
+            provider_id: this.state.identifier,
+            client_id: store.getState().userAccount.id,
+        }
+
+        const token = store.getState().userAccount.token;
+        const method = "POST";    
+        let xhttp = new XMLHttpRequest();    
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/clients/" + store.getState().userAccount.id + "/appointments";
+    
+        xhttp.open(method, url, false);
+        xhttp.setRequestHeader("Content-Type", "application/json");
+
+        if(token !== null)
+        {
+            xhttp.setRequestHeader("Authorization", token);
+        }
+        xhttp.send(JSON.stringify(appointmentData));
+
+        // TODO : success and error toast
+        //return JSON.parse(xhttp.responseText); 
+        this.handleExitModal();
+        this.forceUpdate();
+    }
+
+    handleExitModal(){
+        this.setState({
+            newAppointment:{
+                show: false
+            }
+        })
+    }
+
+    renderServicesSelect(){
+        return this.state.providerServices.map((service)=>(
+            <IonSelectOption value={service.id}>{service.title}</IonSelectOption>
+        ));
+    }
 
     render(){
         const ColoredDateCellWrapper = ({ children }) =>
@@ -52,21 +167,55 @@ class BeautyScheduler extends React.Component{
             style: {
             backgroundColor: 'lightblue',
             },
-        })
-
-        const calendar = 
-           (<Calendar
-                events={this.retrieveAppointments()}
-                views={{work_week: true, month: true}}
-                defaultDate={new Date()}
-                localizer={momentLocalizer(moment)}
-                style={{ height: 500 }}
-                components={{
-                  timeSlotWrapper: ColoredDateCellWrapper,
-                }}
-          />);
-
-        return calendar;
+        });
+        
+        return (
+         <IonContent>
+             <Calendar
+                     selectable={this.state.identifier !== null}
+                     onSelectEvent={event => this.handleShowAppointment(event)}
+                     onSelectSlot={this.handleAddAppointment}
+                     events={this.retrieveAppointments()}
+                     views={{work_week: true, month: true}}
+                     defaultDate={new Date()}
+                     localizer={momentLocalizer(moment)}
+                     style={{ height: 500 }}
+                     components={{
+                     timeSlotWrapper: ColoredDateCellWrapper,
+                     }}
+             />
+             <IonAlert 
+                isOpen={this.state.appointmentDetail.show}
+                onDidDismiss={() => this.setState({
+                    appointmentDetail: {
+                        show: false
+                    }
+                })}
+                header={this.state.appointmentDetail.header}
+                message={this.state.appointmentDetail.message}
+             />
+             <IonModal
+                isOpen={this.state.newAppointment.show}
+                swipeToClose={true}
+                onDidDismiss={this.handleExitModal}
+             >
+                 <IonLabel>Book {this.state.providerInfo.name} for</IonLabel>
+                 <IonSelect id='user_service_selected'  aria-required onIonChange={(event) => {console.log('event', event)}}  >
+                     {this.renderServicesSelect()}
+                 </IonSelect>
+                 <IonLabel>on</IonLabel>
+                 <IonItem>
+                    <IonDatetime id='user_date_selected' value={this.state.newAppointment.selectedMoment} displayFormat="DD/MM/YYYY" pickerFormat="DD/MM/YYYY" ></IonDatetime>
+                    <IonLabel>at</IonLabel>
+                    <IonDatetime id='user_time_selected' value={this.state.newAppointment.selectedMoment} displayFormat="HH:mm" pickerFormat="HH:mm" ></IonDatetime>
+                    </IonItem>
+                 <IonToolbar>                     
+                    <IonButton onClick={this.handleExitModal} color='warning' >Cancel</IonButton>
+                    <IonButton onClick={this.handleSaveAppointment} color='success' >Validate</IonButton>
+                 </IonToolbar>
+             </IonModal>
+         </IonContent>
+       );
     }
 }
 
