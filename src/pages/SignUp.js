@@ -59,7 +59,6 @@ class SignUp extends React.Component {
         const password = (document.getElementById("password")  ).value;
 
         let createAccountResponse = null;
-
         if (this.state.accountType === 'clients'){
             const firstname = (document.getElementById("firstname")  ).value;
 

@@ -77,7 +77,7 @@ class BeautyScheduler extends React.Component{
     }
 
     handleShowAppointment(event){
-        // Anonymous user cannot view apppointment detail
+        // Anonymous user cannot see apppointment detail
         if(this.state.identifier === null)
         {
             return

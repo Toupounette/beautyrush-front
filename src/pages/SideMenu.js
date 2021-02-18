@@ -81,43 +81,48 @@ class SideMenu extends React.Component {
         if(this.state.connected === false)
         {
             this.state.pages = [
-                { title: 'Home', path: '/', icon: home, submenu: [] },
-                { title: 'Sign in', path: '/signIn', icon: logIn, submenu: [] },
-                { title: 'Sign up', path: '/signUp', icon: create, submenu: [] },
-                { title: 'About', path: '/about', icon: informationCircle, submenu: [] },
+                { title: 'Home', path: '/', icon: home },
+                { title: 'Sign in', path: '/signIn', icon: logIn },
+                { title: 'Sign up', path: '/signUp', icon: create },
+                { title: 'About', path: '/about', icon: informationCircle },
                 
             ];
         }
         else
         {
-            let userSubmenu = [];
 
             switch(this.state.role){
                 case 'admin':
                     {
-                        userSubmenu = [
-                            { title: 'User comments', path: '/admincomments', icon: chatbox , submenu: [] },
-                            { title: 'User accounts', path: '/adminaccounts', icon: person, submenu: [] },
+                        this.state.pages = [
+                            { title: 'Home', path: '/', icon: home },
+                            { title: 'User comments', path: '/admincomments', icon: chatbox  },
+                            { title: 'User accounts', path: '/adminaccounts', icon: person },
+                            { title: 'About', path: '/about', icon: informationCircle }
                         ] ;
                         break;
                     }
                 case 'client':
                     {
-                        userSubmenu = [
-                            { title: 'Comment', path: '/comments', icon: chatbox, submenu: [] },
-                            { title: 'Schedule', path: '/schedule', icon: calendar, submenu: [] },
-                            { title: 'Account', path: '/account', icon: person, submenu: [] },
+                        this.state.pages = [
+                            { title: 'Home', path: '/', icon: home },
+                            { title: 'Comment', path: '/comments', icon: chatbox },
+                            { title: 'Schedule', path: '/schedule', icon: calendar },
+                            { title: 'Account', path: '/account', icon: person },
+                            { title: 'About', path: '/about', icon: informationCircle }
                         ] ;
                         break;
                     }
                 case 'provider':
                     {
-                        userSubmenu = [
-                            { title: 'Comment', path: '/comments', icon: chatbox, submenu: [] },
-                            { title: 'Schedule', path: '/schedule', icon: calendar, submenu: [] },
-                            { title: 'Portfolio', path: '/portfolio', icon: images, submenu: [] },
-                            { title: 'Services', path: '/services', icon: colorWand, submenu: [] },
-                            { title: 'Account', path: '/account', icon: person, submenu: [] },
+                        this.state.pages = [
+                            { title: 'Home', path: '/', icon: home },
+                            { title: 'Comment', path: '/comments', icon: chatbox },
+                            { title: 'Schedule', path: '/schedule', icon: calendar },
+                            { title: 'Portfolio', path: '/portfolio', icon: images },
+                            { title: 'Services', path: '/services', icon: colorWand },
+                            { title: 'Account', path: '/account', icon: person },
+                            { title: 'About', path: '/about', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -126,13 +131,6 @@ class SideMenu extends React.Component {
                         console.warn("Invalid role : " + this.state.role);
                     }
             }
-
-            this.state.pages = [
-                { title: 'Home', path: '/', icon: home, submenu: [] },
-                {title: 'Manage', path: null, icon: cog,  submenu: userSubmenu },
-                { title: 'About', path: '/about', icon: informationCircle, submenu: [] }
-                
-            ];
         }
         
         return this.state.pages.map((page) => (
@@ -195,6 +193,7 @@ class SideMenu extends React.Component {
         <IonMenu contentId="main" class="main-menu" >
             <IonContent>
                 <IonList>
+                    <IonMenuToggle auto-hide='true'>
                         {this.renderMenuItems()}
                         {(this.state.connected === true) && (
                         <IonItem  key='Log out' 
@@ -211,6 +210,7 @@ class SideMenu extends React.Component {
                             <IonIcon class="pics" icon={logOut}/>
                         </IonItem>
                         )}
+                    </IonMenuToggle>
                 </IonList>
             </IonContent>
         </IonMenu>
