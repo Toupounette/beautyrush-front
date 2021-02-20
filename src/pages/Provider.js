@@ -11,7 +11,8 @@ import {
     IonTitle,
     IonText,
     IonAvatar,
-    IonImg
+    IonImg,
+    IonToast
 } from '@ionic/react';
 
 import store from "../redux/store";
@@ -35,7 +36,9 @@ class Provider extends React.Component {
             info : {},
             services : [],
             comments : [],
-            schedule : null
+            schedule : null,
+            showToastError: false,
+            toastErrorMessage: ''
         }
     }
 
@@ -52,7 +55,12 @@ class Provider extends React.Component {
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-        xhttp.send();
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         return JSON.parse(xhttp.responseText);        
     }
@@ -65,7 +73,12 @@ class Provider extends React.Component {
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-        xhttp.send();
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         return JSON.parse(xhttp.responseText);         
     }
@@ -159,6 +172,13 @@ class Provider extends React.Component {
                 </IonItem>  
 
                 </IonContent>
+
+                <IonToast color="danger"
+                isOpen={this.state.showToastError}
+                onDidDismiss={() => this.setState({ showToastError : false })}
+                message= {this.state.toastErrorMessage}
+                duration={1000}
+                />
             </IonPage>
         )
     }

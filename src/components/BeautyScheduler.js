@@ -15,8 +15,12 @@ import {
     IonSelect,
     IonSelectOption,
     IonItem,
-    IonDatetime
+    IonDatetime,
+    IonToast,
+    IonTextarea
 } from '@ionic/react';
+
+import BeautyComment from './BeautyComment'
 
 class BeautyScheduler extends React.Component{
     constructor(props){
@@ -25,47 +29,63 @@ class BeautyScheduler extends React.Component{
         this.state = {
             role: props.role,
             identifier: props.identifier,
+            token: store.getState().userAccount.token,
             calendarType: (props.calendarType !== undefined) ? props.calendarType : null,
             providerServices: props.providerServices,
             providerInfo: props.providerInfo,
             appointmentDetail:{
                 show: false,
                 header: '',
-                message: ''
+                message: '',
+                canComment: false,
+                id: null
             },
             newAppointment:{
                 show: false,
                 selectedService: null,
                 selectedMoment: null
-            }
+            },
+            newComment:{
+                show: false,
+                text: ''
+            },
+            showToastError: false,
+            showToastSuccess: false,
+            toastErrorMessage: ''
         }
 
         this.handleShowAppointment = this.handleShowAppointment.bind(this);
         this.handleAddAppointment = this.handleAddAppointment.bind(this);
         this.handleSaveAppointment = this.handleSaveAppointment.bind(this);
         this.handleExitModal = this.handleExitModal.bind(this);
+        this.handleDeleteAppointment = this.handleDeleteAppointment.bind(this);
+        this.handleAddComment = this.handleAddComment.bind(this);
     }
 
     retrieveAppointments(){
-        const token = store.getState().userAccount.token;
         const method = "GET";
         let xhttp = new XMLHttpRequest();
 
         const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier +'/appointments';
         xhttp.open(method, url, false);
         
-        if(token !== null)
+        if(this.state.token !== null)
         {
-            xhttp.setRequestHeader("Authorization", token);
+            xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send(); 
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        } 
 
         const jsonResponse = JSON.parse(xhttp.responseText);
 
         const appointments = jsonResponse.map((appointment) =>(
             {
-                id: appointment.a_id,
+                id: appointment.a_ID,
                 title: appointment.title + " with " + appointment.name,
                 allDay:false,
                 start:  new Date(appointment.moment),
@@ -78,7 +98,6 @@ class BeautyScheduler extends React.Component{
 
     handleShowAppointment(event){
         // Anonymous user cannot see apppointment detail
-        // complexifier le if pour masquer les details du rdv pour les clients et autres providers
         if(! this.isAllowedToSeeDetails())
         {
             return
@@ -88,7 +107,9 @@ class BeautyScheduler extends React.Component{
             appointmentDetail:{
                 show: true,
                 header: moment(event.start).format('DD/MM/YYYY HH:mm'),
-                message: event.title
+                message: event.title,
+                canComment: (moment(event.start) < moment()),
+                id: event.id
             }
         });
     }
@@ -120,7 +141,6 @@ class BeautyScheduler extends React.Component{
         const date_selected = (document.getElementById("user_date_selected")).value;
         const time_selected = (document.getElementById("user_time_selected")).value;
         const appointmentMoment = moment(date_selected + " " + time_selected)
-        console.log("appointmentMoment = ", appointmentMoment);
         const appointmentData = {
             moment: appointmentMoment,
             service_id: (document.getElementById("user_service_selected")).value,
@@ -128,7 +148,6 @@ class BeautyScheduler extends React.Component{
             client_id: store.getState().userAccount.id,
         }
 
-        const token = store.getState().userAccount.token;
         const method = "POST";    
         let xhttp = new XMLHttpRequest();    
         const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/clients/" + store.getState().userAccount.id + "/appointments";
@@ -136,16 +155,27 @@ class BeautyScheduler extends React.Component{
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-        if(token !== null)
+        if(this.state.token !== null)
         {
-            xhttp.setRequestHeader("Authorization", token);
-        }
-        xhttp.send(JSON.stringify(appointmentData));
+            xhttp.setRequestHeader("Authorization", this.state.token);
+        }        
 
-        // TODO : success and error toast
-        //return JSON.parse(xhttp.responseText); 
+        try{
+            xhttp.send(JSON.stringify(appointmentData)); 
+             
+
+            if(xhttp.status === 200){
+                this.setState({showToastSuccess: true});
+            }
+            else{
+                this.setState({showToastError: true, toastErrorMessage: "Cannot add this appointment. Try later" });            
+            }
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+        
         this.handleExitModal();
-        this.forceUpdate();
     }
 
     handleExitModal(){
@@ -154,6 +184,36 @@ class BeautyScheduler extends React.Component{
                 show: false
             }
         })
+    }
+
+    handleDeleteAppointment(){
+        const method = "DELETE";
+        let xhttp = new XMLHttpRequest();
+
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/' + this.state.role + 's/' + this.state.identifier +'/appointments/' + this.state.appointmentDetail.id;
+        xhttp.open(method, url, false);
+        
+        if(this.state.token !== null)
+        {
+            xhttp.setRequestHeader("Authorization", this.state.token);
+        }
+
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        } 
+
+        this.forceUpdate();
+    }
+
+    handleAddComment(){
+        this.setState({
+            newComment:{
+                show: true
+            }
+        });
     }
 
     isAllowedToAddAppointment(){
@@ -223,7 +283,29 @@ class BeautyScheduler extends React.Component{
                 })}
                 header={this.state.appointmentDetail.header}
                 message={this.state.appointmentDetail.message}
+                buttons={ this.state.appointmentDetail.canComment ? 
+                    ['OK',
+                {
+                    text: 'Comment',
+                    color: 'warning',
+                    handler: this.handleAddComment
+                }]
+                :
+                ['OK',
+                {
+                    text: 'Delete',
+                    color:'danger',
+                    handler: this.handleDeleteAppointment
+                }]
+            }
              />
+             <IonModal 
+                isOpen={this.state.newComment.show}
+                swipeToClose={true}
+                onDidDismiss={()=>{ this.setState({newComment:{show: false}}) }}             
+            >
+                <BeautyComment isUpdate={false} comment={{comment:''}}   />
+            </IonModal>
              { 
                 (this.state.calendarType === 'clientSearchResult') && (
                     <IonModal
@@ -248,6 +330,22 @@ class BeautyScheduler extends React.Component{
                  </IonModal> 
                 )
              }
+             <IonToast color="success"
+             isOpen={this.state.showToastSuccess}
+             onDidDismiss={() => {
+                 this.setState({ showToastSuccess : false });
+                 this.forceUpdate();
+                }}
+             message="Appointment added"
+             duration={1000}
+             />
+                
+             <IonToast color="danger"
+             isOpen={this.state.showToastError}
+             onDidDismiss={() => this.setState({ showToastError : false })}
+             message= {this.state.toastErrorMessage}
+             duration={1000}
+             />
              
          </IonContent>
        );

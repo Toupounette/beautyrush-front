@@ -12,50 +12,79 @@ import {
     IonSelect,
     IonSelectOption,
     IonToast } from '@ionic/react';
+
+
     
 import BeautyHeader from '../components/BeautyHeader';
 
-class ForgottenPassword extends React.Component {
+import store from '../redux/store';
+
+class UpdatePassword extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            accountType: "clients",
-            toastErrorMessage:'',
+            role: store.getState().userAccount.role,
+            identifier: store.getState().userAccount.id,
+            token : store.getState().userAccount.token,
+            accountData : null,
             showToastSuccess : false,
-            showToastError : false
+            showToastError : false,
+            toastErrorMessage: ''
         };
     }
 
     updatePassword(data){
         const method = "POST";
         let xhttp = new XMLHttpRequest();
-        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT +"/"+ this.state.accountType + "/forgottenpassword";
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT +"/"+ this.state.role + 's/'+ this.state.identifier + "/updatepassword";
 
         xhttp.open(method, url, false);
         xhttp.setRequestHeader("Content-Type", "application/json");
 
+        if(this.state.token !== null)
+        {
+            xhttp.setRequestHeader("Authorization", this.state.token);
+        }
+        
         try {
             xhttp.send(JSON.stringify(data));
         }
         catch(err) {
             this.setState({showToastError: true, toastErrorMessage: "No server connection"});
         }
-        
-        return xhttp;
+
+        return xhttp;       
     }
 
-    handleResetPassword(){
-        const email = (document.getElementById("email")  ).value;        
-        const updatePasswordResponse = this.updatePassword({email});
+    handlePassword(){
+        const email = (document.getElementById("email")  ).value;
+        const current_password = (document.getElementById("current_password")  ).value;
+        const new_password = (document.getElementById("new_password")  ).value;
+        const confirm_new_password = (document.getElementById("confirm_new_password")  ).value;
+
+        const updateData = {
+            email: email,
+            currentPassword: current_password,
+            newPassword: new_password,
+            newPasswordConfirm: confirm_new_password
+        };
+        
+        const updatePasswordResponse = this.updatePassword(updateData);
+
         switch(updatePasswordResponse.status) {
             case 200 :
             {
-                this.setState({ showToastSuccess : true  });
+                this.setState({ showToastSuccess : true });
                 break;
             }
             default :
-            {                
-                this.setState({showToastError: true, toastErrorMessage: "Invalid email for this account type"});
+            {
+                const formatedMessage = updatePasswordResponse
+                .responseText
+                .replaceAll("\"", "").replaceAll("\\", "");
+
+                this.setState({ showToastError : true, toastErrorMessage: formatedMessage });
             }
         }
     }
@@ -76,20 +105,23 @@ class ForgottenPassword extends React.Component {
                                         <IonInput id="email" name="email" type="email" placeholder="your@mail.com" required></IonInput>
                                     </IonItem>
                                     <IonItem>
-                                    <IonSelect value={ this.state.accountType } aria-required onIonChange={e => this.setState({ accountType: e.detail.value })}>
-                                        <IonSelectOption value='clients'>Client</IonSelectOption>
-                                        <IonSelectOption value='providers'>Provider</IonSelectOption>
-                                    </IonSelect>
+                                        <IonInput name="current password" id="current_password" type="password" placeholder="Current Password" required></IonInput>
+                                    </IonItem>
+                                    <IonItem>
+                                        <IonInput name="new password" id="new_password" type="password" placeholder="New Password" required></IonInput>
+                                    </IonItem>
+                                    <IonItem>
+                                        <IonInput name="confirm new password" id="confirm_new_password" type="password" placeholder="Confirm New Password" required></IonInput>
                                     </IonItem>
                                 </div>
+
                                 <div>
                                 <IonToast color="success"
                                 isOpen={this.state.showToastSuccess}                                
                                 onDidDismiss={() => {
                                     this.setState({ showToastSuccess : false });
-                                    window.location.replace('/signIn');
                                 }}
-                                message="Your new password has been sent to your email"
+                                message="Your password has been updated"
                                 duration={2000}
                                 />
                                 <IonToast color="danger"
@@ -98,7 +130,7 @@ class ForgottenPassword extends React.Component {
                                 duration={2000}
                                 message={this.state.toastErrorMessage}
                                 />
-                                <IonButton size="large" onClick={ ()=>{ this.handleResetPassword() } } expand="block">Reset Password</IonButton>
+                                <IonButton size="large" onClick={ ()=>{ this.handlePassword() } } expand="block">Update Password</IonButton>
                                 </div>
                             </IonCol>
                         </IonRow>
@@ -110,4 +142,14 @@ class ForgottenPassword extends React.Component {
 
 }
 
-export default ForgottenPassword;
+
+
+
+
+
+
+
+
+
+
+export default UpdatePassword;

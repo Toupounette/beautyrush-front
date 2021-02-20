@@ -9,7 +9,8 @@ import {
     IonList, 
     IonModal, 
     IonSelect,
-    IonToolbar
+    IonToolbar,
+    IonToast
 } from '@ionic/react';
 import React from 'react';
 
@@ -29,7 +30,9 @@ class BeautyServices extends React.Component{
             showServicesModal: false,
             identifier: props.identifier,
             token : store.getState().userAccount.token,
-            services : []            
+            services : [],
+            showToastError: false,
+            toastErrorMessage: ''          
         }
     }
 
@@ -49,7 +52,13 @@ class BeautyServices extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send();
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+
         return JSON.parse(xhttp.responseText);
     }
 
@@ -65,8 +74,12 @@ class BeautyServices extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send();
-        console.log("xhttp.responseText = ", xhttp.responseText);
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         this.state.services = JSON.parse(xhttp.responseText);
     }
@@ -113,6 +126,13 @@ class BeautyServices extends React.Component{
                         </IonButton>
                     </IonToolbar>
                 </IonFooter>
+                
+                <IonToast color="danger"
+                isOpen={this.state.showToastError}
+                onDidDismiss={() => this.setState({ showToastError : false })}
+                message= {this.state.toastErrorMessage}
+                duration={1000}
+                />
             </IonContent>
         );
     }

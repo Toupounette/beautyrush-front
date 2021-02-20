@@ -11,7 +11,7 @@ function saveToLocalStorage(state) {
     }
 }
 
-// fonction qiu permet de lire
+// fonction qui permet de lire
 function loadFromLocalStorage() {
     try {
         const serialisedState = localStorage.getItem("persistantState");

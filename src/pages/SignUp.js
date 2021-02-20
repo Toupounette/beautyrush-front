@@ -11,7 +11,8 @@ import {
     IonCol, 
     IonSelect,
     IonSelectOption,
-    IonToast
+    IonToast,
+    IonTitle
      } from '@ionic/react';
 
 import BeautyHeader from '../components/BeautyHeader';
@@ -21,12 +22,14 @@ class SignUp extends React.Component {
         super(props);
         this.state = { 
             accountType:"clients",
-            errorToastMessage: "",
+            toastErrorMessage: "",
             showToastSucces: false,
             showToastInvalidEmail: false,
             showToastInvalidPassword: false,
             showToastError: false 
         };
+
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
     createAccount(path, data){
@@ -47,7 +50,12 @@ class SignUp extends React.Component {
         xhttp.setRequestHeader("Content-Type", "application/json");
 
         // Envoi de la requete de création de compte au serveur back
-        xhttp.send(JSON.stringify(data));
+        try {
+            xhttp.send(JSON.stringify(data));
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         // On retourne le resultat de la requete de creation de compte
         return xhttp;
@@ -88,7 +96,7 @@ class SignUp extends React.Component {
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 
                 // on enregistre le message d'erreur dans le state pour que le toast d'erreur l'affiche
-                this.setState({ showToastError : true, errorToastMessage : formatedMessage });   
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage });   
             }                     
         }
     };
@@ -101,9 +109,7 @@ class SignUp extends React.Component {
                 <IonGrid>
                     <IonRow color="primary" justify-content-center>
                         <IonCol align-self-center size-md="6" size-lg="5" size-xs="12">
-                            <div >
-                                <h3>Create your account !</h3>
-                            </div>
+                            <IonTitle>Create your account !</IonTitle>
                             <div>
                                 <IonItem>
                                     <IonInput name="name" id="name" type="text" placeholder="Name" required></IonInput>
@@ -150,7 +156,7 @@ class SignUp extends React.Component {
                             <IonToast color="danger"
                             isOpen={this.state.showToastError}
                             onDidDismiss={() => this.setState({ showToastError : false })}
-                            message={this.state.errorToastMessage}
+                            message={this.state.toastErrorMessage}
                             duration={2000}
                             />
                                 <IonButton size="large" onClick={ this.handleRegister } expand="block">Register</IonButton>

@@ -7,11 +7,15 @@ import {
     IonLabel, 
     IonList, 
     IonToolbar,
-    IonItem
+    IonItem,
+    IonToast,
+    IonModal
  } from '@ionic/react';
 import React from 'react';
 
 import store from "../redux/store";
+
+import BeautyComment from './BeautyComment'
 
 class BeautyComments extends React.Component{
     constructor(props){
@@ -21,7 +25,11 @@ class BeautyComments extends React.Component{
             role: props.role,
             identifier: props.identifier,
             token : store.getState().userAccount.token,
-            comments : []
+            comments : [],
+            showToastError: false,
+            toastErrorMessage: '',
+            showEditModal: false,
+            commentToUpdate: null
         }
 
         this.handleDeleteComment = this.handleDeleteComment.bind(this);
@@ -39,34 +47,15 @@ class BeautyComments extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send(); 
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         this.retrieveComments();
         this.forceUpdate();
-    }
-
-    handleSaveComment(commentId){
-        console.log("save");
-
-        let editButton = document.getElementById('edit_' + commentId);
-        editButton.style.display = 'block';
-
-        let saveButton = document.getElementById('save_' + commentId);
-        saveButton.style.display = 'none';
-    }
-
-    handleEditComment(commentId){
-        console.log("edit");
-
-        let commentToEdit = document.getElementById(commentId);
-        commentToEdit.readonly= 'true';
-        commentToEdit.disabled = 'false';
-
-        let editButton = document.getElementById('edit_' + commentId);
-        editButton.style.display = 'none';
-
-        let saveButton = document.getElementById('save_' + commentId);
-        saveButton.style.display = 'block';
     }
 
     retrieveComments(){
@@ -81,7 +70,12 @@ class BeautyComments extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send(); 
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        } 
 
         this.state.comments = JSON.parse(xhttp.responseText);
     }
@@ -95,13 +89,16 @@ class BeautyComments extends React.Component{
                     <IonCardHeader>
                         <IonLabel><strong>{comment.title} with {comment.name} on {comment.moment}</strong></IonLabel>
                     </IonCardHeader>
-                    <IonTextarea value={comment.comment} autocapitalize readonly='true' disabled='false' inputmode='text' maxlength='250' />
+                    <IonTextarea value={comment.comment} autocapitalize readonly='true' />
                     {
                         (this.state.role !== 'provider') && (
                             <IonFooter>
                                 <IonToolbar>
-                                    <IonButton id={'save_' + comment.ID} color="warning" onClick={()=>{this.handleSaveComment(comment.ID)}} size={1} style={{display:'none'}} >Save</IonButton>
-                                    <IonButton id={'edit_' + comment.ID} color="warning" onClick={()=>{this.handleEditComment(comment.ID)}} size={1} style={{display:'block'}} >Edit</IonButton>
+                                    <IonButton color="warning" onClick={()=>{
+                                        this.setState({
+                                            commentToUpdate: comment
+                                        });
+                                    }} size={1} style={{display:'block'}} >Edit</IonButton>
                                     <IonButton color="danger" onClick={()=>{this.handleDeleteComment(comment.ID)}} size={1} >Delete</IonButton>
                                 </IonToolbar>
                             </IonFooter>
@@ -114,9 +111,24 @@ class BeautyComments extends React.Component{
 
     render(){
         return(
-            <IonList>
-                {this.renderComments()}
-            </IonList>
+            <>
+                <IonList>
+                    {this.renderComments()}
+                </IonList>                
+                
+                <IonModal
+                        isOpen={this.state.showEditModal}
+                >
+                    <BeautyComment comment={this.state.commentToUpdate} isUpdate={true} />
+                </IonModal>
+
+                <IonToast color="danger"
+                isOpen={this.state.showToastError}
+                onDidDismiss={() => this.setState({ showToastError : false })}
+                message= {this.state.toastErrorMessage}
+                duration={1000}
+                />
+            </>
         );
     }
 }

@@ -5,7 +5,10 @@ import {
     IonButton,
     IonFooter,
     IonToast,
-    IonContent
+    IonContent,
+    IonRouterLink,
+    IonRow,
+    IonCol
 } from '@ionic/react';
 
 import React from 'react';
@@ -22,7 +25,8 @@ class BeautyAccount extends React.Component{
             token : store.getState().userAccount.token,
             accountData : null,
             showToastSucces : false,
-            showToastError : false
+            showToastError : false,
+            toastErrorMessage: ''
         };
     }
 
@@ -38,7 +42,13 @@ class BeautyAccount extends React.Component{
             xhttp.setRequestHeader("Authorization", this.state.token);
         }
 
-        xhttp.send();
+        try{
+            xhttp.send();
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+
         this.state.accountData = JSON.parse(xhttp.responseText)[0];
     }
 
@@ -55,7 +65,13 @@ class BeautyAccount extends React.Component{
         }
 
         xhttp.setRequestHeader("Content-Type", "application/json");
-        xhttp.send(JSON.stringify(data)); 
+
+        try{
+            xhttp.send(JSON.stringify(data)); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
         
         return xhttp;
     }
@@ -80,7 +96,7 @@ class BeautyAccount extends React.Component{
             this.forceUpdate();
         }
         else{
-            this.setState({  showToastError : true });           
+            this.setState({  showToastError : true, toastErrorMessage: "An erro ccured. Try later" });           
         }
     }
 
@@ -121,9 +137,16 @@ class BeautyAccount extends React.Component{
                     <IonToast color="danger"
                     isOpen={this.state.showToastError}
                     onDidDismiss={() => this.setState({ showToastError : false })}
-                    message= "Sorry, an error occurred."
+                    message= {this.state.toastErrorMessage}
                     duration={1000}
                     />
+                    <IonRow>
+                        <IonCol>
+                            <IonRouterLink href="/updatepassword">                            
+                            Update your password
+                            </IonRouterLink>
+                        </IonCol>
+                    </IonRow>
             </IonContent>
             </>
 

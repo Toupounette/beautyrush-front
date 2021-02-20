@@ -25,9 +25,11 @@ class SignIn extends React.Component {
         super(props);
         this.state = { 
             accountType:"clients",
-            errorToastMessage: "",
+            toastErrorMessage: "",
             showToastSuccess : false,
             showToastError : false };
+
+        this.handleConnection = this.handleConnection.bind(this);
     }
         
     connectAccount(path, data){
@@ -48,7 +50,12 @@ class SignIn extends React.Component {
         xhttp.setRequestHeader("Content-Type", "application/json");
 
         // Envoi de la requete de création de compte au serveur back
-        xhttp.send(JSON.stringify(data));
+        try {
+            xhttp.send(JSON.stringify(data));
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
         // On retourne le resultat de la requete de creation de compte
         return xhttp;
@@ -83,7 +90,7 @@ class SignIn extends React.Component {
             }
             case 401 :
             {
-                this.setState({ showToastError : true, errorToastMessage : 'Invalid email or password'   });
+                this.setState({ showToastError : true, toastErrorMessage : 'Invalid email or password'   });
                 break;
             }
             default :
@@ -94,7 +101,7 @@ class SignIn extends React.Component {
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 
                 // on enregistre le message d'erreur dans le state pour que le toast d'erreur l'affiche
-                this.setState({ showToastError : true, errorToastMessage : formatedMessage  });
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage  });
             }
         }
           
@@ -135,7 +142,7 @@ class SignIn extends React.Component {
                             <IonToast color="danger"
                             isOpen={this.state.showToastError}
                             onDidDismiss={() => this.setState({ showToastError : false })}
-                            message= {this.state.errorToastMessage}
+                            message= {this.state.toastErrorMessage}
                             duration={1000}
                             />
                                 <IonButton size="large" onClick={ ()=>{ this.handleConnection() } } expand="block">Connection</IonButton>
@@ -144,7 +151,7 @@ class SignIn extends React.Component {
                     </IonRow>
                     <IonRow>
                         <IonCol>
-                            <IonLabel>Not on Beauty Rush yet ?</IonLabel>
+                            <IonLabel>Not on Beauty Rush yet?</IonLabel>
                         </IonCol>
                         <IonCol>
                             <IonRouterLink href="/signUp">                            
@@ -154,11 +161,11 @@ class SignIn extends React.Component {
                     </IonRow>
                     <IonRow>
                         <IonCol>
-                            <IonLabel>Forgot your password ?</IonLabel>
+                            <IonLabel>Forgot your password?</IonLabel>
                         </IonCol>
                         <IonCol>
                             <IonRouterLink href="/forgottenpassword">                            
-                                Go here!
+                                Reset it!
                             </IonRouterLink>
                         </IonCol>
                     </IonRow>

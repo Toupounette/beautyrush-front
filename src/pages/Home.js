@@ -6,7 +6,8 @@ import {
     IonSearchbar,
     IonContent,
     IonSelect,
-    IonSelectOption
+    IonSelectOption,
+    IonToast
  } from '@ionic/react';
 import React from 'react';
 
@@ -22,7 +23,9 @@ class Home extends React.Component {
       this.state = {
         searchText: '',
           searchType: 'byservice',
-          searchResult: []
+          searchResult: [],
+          showToastError: false,
+          toastErrorMessage: ''
       };
   }
 
@@ -52,7 +55,12 @@ class Home extends React.Component {
       xhttp.open(method, url, false);
       
       // Envoi de la requete de création de compte au serveur back
-      xhttp.send(); 
+      try{
+        xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
 
       // reponse de serveur vers le front en dessous, et requete du front vers le serveur au dessus
       return JSON.parse(xhttp.responseText);
@@ -98,6 +106,13 @@ class Home extends React.Component {
             )
         }
         </IonContent>
+
+        <IonToast color="danger"
+        isOpen={this.state.showToastError}
+        onDidDismiss={() => this.setState({ showToastError : false })}
+        message= {this.state.toastErrorMessage}
+        duration={1000}
+        />
     </IonPage>
     );
   }

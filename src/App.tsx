@@ -15,6 +15,7 @@ import Comments from './pages/Comments';
 import Account from './pages/Account';
 import Services from './pages/Services';
 import ForgottenPassword from './pages/ForgottenPassword';
+import UpdatePassword from './pages/UpdatePassword';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -92,6 +93,7 @@ return (
                 (this.state.connected === true && this.state.role !== 'admin') && (
                   <>
                     <Route path="/account" component={Account} exact={true} />
+                    <Route path="/updatepassword" component={UpdatePassword} exact={true} />
                     <Route path="/comments" component={Comments} exact={true} />
                     <Route path="/schedule" component={Scheduler} exact={true} />
                     {
