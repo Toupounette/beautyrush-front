@@ -107,6 +107,7 @@ class BeautyAccount extends React.Component{
 
     render(){
         return(
+            <>
             <IonContent>
                  {this.renderAcountData()}
                  <IonButton onClick={()=>{this.handleUpdate()}} color='warning'>Update</IonButton>
@@ -124,7 +125,12 @@ class BeautyAccount extends React.Component{
                     duration={1000}
                     />
             </IonContent>
+            </>
+
+            
         );
+
+      
     }
 }
 

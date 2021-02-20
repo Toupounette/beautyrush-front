@@ -18,7 +18,6 @@ class BeautyHeader extends React.Component{
 
     render(){
         return(
-            <>
             <IonHeader class="beautyheader">
                 <IonToolbar>  
                     <IonRow>
@@ -34,7 +33,6 @@ class BeautyHeader extends React.Component{
                     </IonRow>
                 </IonToolbar>
             </IonHeader>
-            </>
         );
     }
 }

@@ -14,6 +14,7 @@ import Scheduler from './pages/Scheduler';
 import Comments from './pages/Comments';
 import Account from './pages/Account';
 import Services from './pages/Services';
+import ForgottenPassword from './pages/ForgottenPassword';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -82,6 +83,7 @@ return (
                   <>                  
                     <Route path="/signin" component={SignIn} exact={true} />
                     <Route path="/signup" component={SignUp} exact={true} />
+                    <Route path="/forgottenpassword" component={ForgottenPassword} exact={true} />
                   </>
                 )
               }

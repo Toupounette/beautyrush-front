@@ -108,8 +108,8 @@ class BeautyServices extends React.Component{
                         <IonModal isOpen={this.state.showServicesModal}>
 
                         </IonModal>
-                        <IonButton onClick={() => {this.setState({showServicesModal: true})}} fill="clear" color='primary'>
-                            <IonIcon size="large" class="icon" icon={addCircle} />
+                        <IonButton   onClick={() => {this.setState({showServicesModal: true})}} fill="clear" >
+                            <IonIcon  color="secondary" size="large"  icon={addCircle} />
                         </IonButton>
                     </IonToolbar>
                 </IonFooter>

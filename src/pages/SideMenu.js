@@ -143,7 +143,7 @@ class SideMenu extends React.Component {
                             <IonLabel>
                                 {page.title}
                             </IonLabel>         
-                            <IonIcon icon={page.icon}/>
+                            <IonIcon class="pop" icon={page.icon}/>
                         </IonItem>
                     )
                 }
@@ -158,7 +158,7 @@ class SideMenu extends React.Component {
                             <IonLabel>
                                 {page.title}
                             </IonLabel>
-                            <IonIcon icon={page.icon}/>
+                            <IonIcon class="pop" icon={page.icon}/>
                         </IonItem>
                         <IonItemGroup id='submenu' hidden={true} submenu >                            
                             {
@@ -169,7 +169,7 @@ class SideMenu extends React.Component {
                                         <IonLabel>
                                             {subpage.title}
                                         </IonLabel>
-                                        <IonIcon icon={subpage.icon}/>
+                                        <IonIcon class="pop" icon={subpage.icon}/>
                                     </IonItem>
                                 ))
                             }

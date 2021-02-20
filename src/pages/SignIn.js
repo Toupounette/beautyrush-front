@@ -152,6 +152,16 @@ class SignIn extends React.Component {
                             </IonRouterLink>
                         </IonCol>
                     </IonRow>
+                    <IonRow>
+                        <IonCol>
+                            <IonLabel>Forgot your password ?</IonLabel>
+                        </IonCol>
+                        <IonCol>
+                            <IonRouterLink href="/forgottenpassword">                            
+                                Go here!
+                            </IonRouterLink>
+                        </IonCol>
+                    </IonRow>
                 </IonGrid>
                 
             </IonContent>
