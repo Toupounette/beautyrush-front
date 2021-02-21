@@ -162,7 +162,6 @@ class BeautyScheduler extends React.Component{
 
         try{
             xhttp.send(JSON.stringify(appointmentData)); 
-             
 
             if(xhttp.status === 200){
                 this.setState({showToastSuccess: true});
@@ -304,7 +303,7 @@ class BeautyScheduler extends React.Component{
                 swipeToClose={true}
                 onDidDismiss={()=>{ this.setState({newComment:{show: false}}) }}             
             >
-                <BeautyComment isUpdate={false} comment={{comment:''}}   />
+                <BeautyComment appointmentID={this.state.appointmentDetail.id}  closeModal={ () =>{ this.setState({newComment:{show: false}}) }} />
             </IonModal>
              { 
                 (this.state.calendarType === 'clientSearchResult') && (

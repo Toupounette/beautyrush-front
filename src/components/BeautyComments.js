@@ -1,12 +1,10 @@
 import { 
-    IonButton, 
-    IonCard, 
-    IonTextarea, 
-    IonCardHeader, 
-    IonFooter, 
-    IonLabel, 
-    IonList, 
-    IonToolbar,
+    IonButton,
+    IonCard,
+    IonTextarea,
+    IonCardHeader,
+    IonLabel,
+    IonList,
     IonItem,
     IonToast,
     IonModal
@@ -92,16 +90,15 @@ class BeautyComments extends React.Component{
                     <IonTextarea value={comment.comment} autocapitalize readonly='true' />
                     {
                         (this.state.role !== 'provider') && (
-                            <IonFooter>
-                                <IonToolbar>
-                                    <IonButton color="warning" onClick={()=>{
-                                        this.setState({
-                                            commentToUpdate: comment
-                                        });
-                                    }} size={1} style={{display:'block'}} >Edit</IonButton>
-                                    <IonButton color="danger" onClick={()=>{this.handleDeleteComment(comment.ID)}} size={1} >Delete</IonButton>
-                                </IonToolbar>
-                            </IonFooter>
+                            <>
+                                <IonButton color="warning" onClick={()=>{
+                                    this.setState({
+                                        commentToUpdate: comment.appID,
+                                        showEditModal: true
+                                    });
+                                }} >Edit</IonButton>
+                                <IonButton color="danger" onClick={()=>{this.handleDeleteComment(comment.ID)}} size={1} >Delete</IonButton>
+                            </>
                         )
                     }
                 </IonCard>
@@ -117,9 +114,10 @@ class BeautyComments extends React.Component{
                 </IonList>                
                 
                 <IonModal
-                        isOpen={this.state.showEditModal}
+                    isOpen={this.state.showEditModal}                        
+                    onDidDismiss={()=>{ this.setState({showEditModal: false}) }}   
                 >
-                    <BeautyComment comment={this.state.commentToUpdate} isUpdate={true} />
+                    <BeautyComment appointmentID={this.state.commentToUpdate} closeModal={() =>{this.setState({ showEditModal : false })}} />
                 </IonModal>
 
                 <IonToast color="danger"
