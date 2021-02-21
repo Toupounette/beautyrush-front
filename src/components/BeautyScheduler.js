@@ -16,8 +16,7 @@ import {
     IonSelectOption,
     IonItem,
     IonDatetime,
-    IonToast,
-    IonTextarea
+    IonToast
 } from '@ionic/react';
 
 import BeautyComment from './BeautyComment'

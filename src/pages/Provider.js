@@ -12,7 +12,8 @@ import {
     IonText,
     IonAvatar,
     IonImg,
-    IonToast
+    IonToast,
+    IonThumbnail
 } from '@ionic/react';
 
 import store from "../redux/store";
@@ -30,11 +31,12 @@ class Provider extends React.Component {
             avatar : '', // icon contact | aperture
             id: props.match.params.id,
             slideoptions:{
-                initialSlide: 1,
+                autoplay: true,
                 speed: 400
             },
             info : {},
             services : [],
+            portfolios : [],
             comments : [],
             schedule : null,
             showToastError: false,
@@ -45,6 +47,23 @@ class Provider extends React.Component {
     isClientToProvider(){
         const role = store.getState().userAccount.role;
         return (role === 'client');
+    }
+
+    getProviderPortfolios(){
+        const method = "GET";    
+        let xhttp = new XMLHttpRequest();    
+        const url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + "/providers/" + this.state.id + "/portfolios";
+    
+        xhttp.open(method, url, false);
+
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+
+        return JSON.parse(xhttp.responseText);          
     }
 
     getProviderServices(){
@@ -86,10 +105,12 @@ class Provider extends React.Component {
     getProviderContent(){
         const info = this.getProviderInfo()[0];
         const services = this.getProviderServices();
+        const portfolios = this.getProviderPortfolios();
 
         this.setState({
             info: info,
-            services: services
+            services: services,
+            portfolios: portfolios
         });
     }
 
@@ -97,10 +118,27 @@ class Provider extends React.Component {
         this.getProviderContent();
     }
 
+    getImage(){        
+        const method = "GET";
+        let xhttp = new XMLHttpRequest();
+        const url = "https://picsum.photos/500";
+    
+        xhttp.open(method, url, false);
+
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+
+        return xhttp.responseURL; 
+    }
+
     renderSlides(){
-        return this.state.services.map((service) => (
+        return this.state.portfolios.map((portfolio) => (
             <IonSlide>
-                {service.title}
+                <IonImg src={this.getImage()} />         
             </IonSlide>
         ));
     }
@@ -128,6 +166,13 @@ class Provider extends React.Component {
     }
 
     renderAvatar(){
+        
+        return(
+            <IonAvatar>
+                <IonImg src={this.getImage()} />
+            </IonAvatar>
+        );
+        
         if(this.state.info.avatar !== null && this.state.info.avatar.trim() === "")
         {
             return(
@@ -152,7 +197,7 @@ class Provider extends React.Component {
                         <IonLabel>{this.state.info.address}</IonLabel>
                     </IonItem>
                     <IonItem>
-                        <IonSlides pager={true} options={this.state.slideoptions}>
+                        <IonSlides options={this.state.slideoptions}>
                             {this.renderSlides()}
                         </IonSlides>
                     </IonItem>

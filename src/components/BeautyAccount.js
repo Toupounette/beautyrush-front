@@ -3,7 +3,6 @@ import {
     IonItem, 
     IonLabel, 
     IonButton,
-    IonFooter,
     IonToast,
     IonContent,
     IonRouterLink,

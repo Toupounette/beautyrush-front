@@ -65,14 +65,9 @@ class SignIn extends React.Component {
         const email = (document.getElementById("email")  ).value;
         const password = (document.getElementById("password")  ).value;
 
-       let connectAccountResponse = null;
-
-        if (this.state.accountType === 'clients'){
-            connectAccountResponse = this.connectAccount( '/clients', { 'email': email, 'password': password});
-        }
-        else if (this.state.accountType === 'providers'){
-            connectAccountResponse = this.connectAccount( '/providers', {'email': email, 'password': password});
-        } 
+        let connectAccountResponse = null;
+        
+        connectAccountResponse = this.connectAccount( this.state.accountType, {'email': email, 'password': password});
         
         switch(connectAccountResponse.status) {
 
@@ -129,6 +124,7 @@ class SignIn extends React.Component {
                                     <IonSelect value={ this.state.accountType } aria-required onIonChange={e => this.setState({ accountType: e.detail.value })}>
                                         <IonSelectOption value='clients'>Client</IonSelectOption>
                                         <IonSelectOption value='providers'>Provider</IonSelectOption>
+                                        <IonSelectOption value='administrators'>Admin</IonSelectOption>
                                     </IonSelect>
                                 </IonItem>
                             </div>
