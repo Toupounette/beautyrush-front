@@ -3,15 +3,16 @@ import React from 'react';
 import { 
     IonCard, 
     IonItem,
-    IonIcon,
+    IonImg,
     IonLabel,
     IonButton,
     IonCardContent,
-    IonList
+    IonList,
+    IonThumbnail,
+    IonTitle
  } from '@ionic/react';
 
 import { aperture } from 'ionicons/icons';
-
 
 
 class BeautySearhcresult extends React.Component{
@@ -21,6 +22,7 @@ class BeautySearhcresult extends React.Component{
         this.state = {
         };        
     }
+    
     handleViewProviderProfile(providerId){
         let element = document.createElement('a');
         element.setAttribute("href", "/provider/"+providerId);
@@ -34,23 +36,44 @@ class BeautySearhcresult extends React.Component{
         return this.props.searchResult.map((provider) =>(
             <IonCard>
                 <IonItem>
-                    <IonIcon icon={aperture} slot="start" />
-                    <IonLabel>{provider.name}</IonLabel>
-                    <IonButton fill="outline" slot="end" onClick={() => {this.handleViewProviderProfile(provider.ID)}}>Profile</IonButton>
-              </IonItem>
+                    <IonThumbnail>
+                        <IonImg src={this.getImage()} />
+                    </IonThumbnail>
+                    <IonTitle>{provider.name}</IonTitle>
+                    </IonItem>
     
                 <IonCardContent>
-                    {provider.address}
-                </IonCardContent>
+                    <IonButton fill="outline" slot="end" onClick={() => {this.handleViewProviderProfile(provider.ID)}}>Profile</IonButton>
+              </IonCardContent>
             </IonCard>
         ));
-      }
+    }
+
+    getImage(){        
+        const method = "GET";
+        let xhttp = new XMLHttpRequest();
+        const url = "https://picsum.photos/500";
+    
+        xhttp.open(method, url, false);
+
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        }
+
+        return xhttp.responseURL; 
+    }
 
     render(){
         return(
-            <IonList>
-            {this.renderSearchResult()}
-            </IonList>
+            <>
+                <IonTitle>Search result</IonTitle>
+                <IonList>
+                    {this.renderSearchResult()}
+                </IonList>
+            </>
         );
     }
 }

@@ -13,7 +13,12 @@ import {
     IonAvatar,
     IonImg,
     IonToast,
-    IonThumbnail
+    IonList,
+    IonCard,
+    IonCardHeader,
+    IonTextarea,
+    IonButton,
+    IonCardContent
 } from '@ionic/react';
 
 import store from "../redux/store";
@@ -22,6 +27,7 @@ import { aperture } from 'ionicons/icons';
 
 import BeautyScheduler from '../components/BeautyScheduler';
 import BeautyHeader from '../components/BeautyHeader';
+import BeautyComments from '../components/BeautyComments';
 
 class Provider extends React.Component {
     constructor(props){
@@ -102,6 +108,28 @@ class Provider extends React.Component {
         return JSON.parse(xhttp.responseText);         
     }
 
+    retrieveComments(){
+        const method = "GET";
+        let xhttp = new XMLHttpRequest();
+
+        let url = process.env.REACT_APP_API_SCHEMA + "://" + process.env.REACT_APP_API_IP + ":" + process.env.REACT_APP_API_PORT + '/providers/' + this.state.id +'/comments';
+        xhttp.open(method, url, false);
+        
+        if(this.state.token !== null)
+        {
+            xhttp.setRequestHeader("Authorization", this.state.token);
+        }
+
+        try{
+            xhttp.send(); 
+        }
+        catch(err) {
+            this.setState({showToastError: true, toastErrorMessage: "No server connection"});
+        } 
+
+        return JSON.parse(xhttp.responseText);
+    }
+
     getProviderContent(){
         const info = this.getProviderInfo()[0];
         const services = this.getProviderServices();
@@ -165,6 +193,18 @@ class Provider extends React.Component {
         return(<IonText>{this.state.info.overview}</IonText>);
     }
 
+    renderComments(){
+        const comments = this.retrieveComments();
+        return comments.map((comment)=>(
+            <IonCard key={comment.ID} id={comment.ID}>
+                <IonText>{comment.grade} / 5</IonText>
+                <IonCardContent>
+                    <IonText>{(comment.comment.trim() !== '' ? comment.comment : "No content")}</IonText>
+                </IonCardContent>
+            </IonCard>
+        ));
+    }
+
     renderAvatar(){
         
         return(
@@ -202,18 +242,21 @@ class Provider extends React.Component {
                         </IonSlides>
                     </IonItem>
                 <IonItem>  
-                                    <IonTitle>Overview</IonTitle>
-                                    {this.renderOveriew()}
+                    <IonTitle>Overview</IonTitle>
+                    {this.renderOveriew()}
                 </IonItem> 
                 <IonItem>  
-                                    <IonTitle>Services</IonTitle>
-                                    {this.renderServices()}
+                    <IonTitle>Services</IonTitle>
+                    {this.renderServices()}
                 </IonItem>   
                 <IonContent>  
-                                    {this.renderScheduler()}
+                    {this.renderScheduler()}
                 </IonContent>  
                 <IonItem>  
-                                    <IonTitle>Comments</IonTitle>
+                    <IonList>
+                    <IonTitle>Comments</IonTitle>
+                        {this.renderComments()}
+                    </IonList>
                 </IonItem>  
 
                 </IonContent>
