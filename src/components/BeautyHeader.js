@@ -22,14 +22,10 @@ class BeautyHeader extends React.Component{
                 <IonToolbar>  
                     <IonRow>
                         <IonMenuButton/>
-                          
-                        <IonButton shape="round" fill="clear" href="/"> 
-                        	<IonItem>
-                        		<IonThumbnail>                         
-                            		<IonImg class="logo" src='assets/img/logo512wobg.png' />
-                            	</IonThumbnail> 
-                            </IonItem> 
-                        </IonButton>
+                                                  
+                        <IonThumbnail>                         
+                            <IonImg class="logo" src='assets/img/logo512wobg.png' />
+                        </IonThumbnail>
                     </IonRow>
                 </IonToolbar>
             </IonHeader>

@@ -27,7 +27,6 @@ import { aperture } from 'ionicons/icons';
 
 import BeautyScheduler from '../components/BeautyScheduler';
 import BeautyHeader from '../components/BeautyHeader';
-import BeautyComments from '../components/BeautyComments';
 
 class Provider extends React.Component {
     constructor(props){
@@ -38,7 +37,8 @@ class Provider extends React.Component {
             id: props.match.params.id,
             slideoptions:{
                 autoplay: true,
-                speed: 400
+                speed: 400,
+                spacebetween: 10
             },
             info : {},
             services : [],
@@ -173,7 +173,9 @@ class Provider extends React.Component {
 
     renderServices(){
         return this.state.services.map((service) =>(
-            <IonLabel>{service.title} | {service.price} €</IonLabel>
+            <IonItem>
+                <IonLabel>{service.title} | {service.price} €</IonLabel>
+            </IonItem>
         ));
     }
 
@@ -246,8 +248,10 @@ class Provider extends React.Component {
                     {this.renderOveriew()}
                 </IonItem> 
                 <IonItem>  
-                    <IonTitle>Services</IonTitle>
-                    {this.renderServices()}
+                    <IonList>
+                        <IonTitle>Services</IonTitle>
+                        {this.renderServices()}
+                    </IonList>
                 </IonItem>   
                 <IonContent>  
                     {this.renderScheduler()}
