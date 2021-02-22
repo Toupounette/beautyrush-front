@@ -39,3 +39,4 @@ class BeautyHeader extends React.Component{
 
 export default BeautyHeader;
 
+

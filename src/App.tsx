@@ -16,6 +16,9 @@ import Account from './pages/Account';
 import Services from './pages/Services';
 import ForgottenPassword from './pages/ForgottenPassword';
 import UpdatePassword from './pages/UpdatePassword';
+import GeneralTerms from './pages/GeneralTerms';
+import LegalMentions from './pages/LegalMentions';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -73,6 +76,10 @@ return (
           <IonPage id="main">
             <Switch>
               <Route path="/about" component={About} exact={true} />
+              <Route path="/generalterms" component={GeneralTerms} exact={true}/>
+              <Route path="/legalmentions" component={LegalMentions} exact={true}/>
+              <Route path="/privacypolicy" component={PrivacyPolicy} exact={true}/>
+
 
               <Route path="/provider/:id" component={Provider} exact={true} />
               <Route path="/home" component={Home} exact={true} />

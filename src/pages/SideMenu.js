@@ -85,6 +85,9 @@ class SideMenu extends React.Component {
                 { title: 'Sign in', path: '/signIn', icon: logIn },
                 { title: 'Sign up', path: '/signUp', icon: create },
                 { title: 'About', path: '/about', icon: informationCircle },
+                { title: 'General Terms', path: '/generalterms', icon: informationCircle },
+                { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                 
             ];
         }
@@ -224,6 +227,7 @@ export default connect(
 )  (
     withRouter(SideMenu)
 );
+
 
 
 
