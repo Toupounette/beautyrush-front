@@ -12,8 +12,7 @@ import {
     IonText,
     IonAvatar,
     IonImg,
-    IonToast,
-    IonThumbnail
+    IonToast
 } from '@ionic/react';
 
 import store from "../redux/store";
