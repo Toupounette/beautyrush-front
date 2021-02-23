@@ -22,10 +22,11 @@ class Home extends React.Component {
 
       this.state = {
         searchText: '',
-          searchType: 'byservice',
-          searchResult: [],
-          showToastError: false,
-          toastErrorMessage: ''
+        searchType: 'byservice',
+        searchResult: [],
+        showToastWarning: false,
+        showToastError: false,
+        toastErrorMessage: ''
       };
   }
 
@@ -73,6 +74,10 @@ class Home extends React.Component {
             this.setState({ searchResult: results});
             this.forceUpdate();
         }
+        else if (e.key === "Enter" && this.state.searchText.length <= 2)
+        {   
+            this.setState({ showToastWarning: true })
+        }
     }
 
   render(){
@@ -111,6 +116,12 @@ class Home extends React.Component {
         isOpen={this.state.showToastError}
         onDidDismiss={() => this.setState({ showToastError : false })}
         message= {this.state.toastErrorMessage}
+        duration={1000}
+        />
+        <IonToast color="warning"
+        isOpen={this.state.showToastWarning}
+        onDidDismiss={() => this.setState({ showToastWarning : false })}
+        message= "Type at lease 3 characters"
         duration={1000}
         />
     </IonPage>

@@ -67,7 +67,7 @@ class SignIn extends React.Component {
 
         let connectAccountResponse = null;
         
-        connectAccountResponse = this.connectAccount( this.state.accountType, {'email': email, 'password': password});
+        connectAccountResponse = this.connectAccount( "/" + this.state.accountType, {'email': email, 'password': password});
         
         switch(connectAccountResponse.status) {
 

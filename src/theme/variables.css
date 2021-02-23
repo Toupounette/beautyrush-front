@@ -115,6 +115,10 @@ http://ionicframework.com/docs/theming/ */
 	--ion-content-size : 20%;
 }
 
+.addAppointment{
+    height: 30%;
+}
+
 @media (prefers-color-scheme: dark) {
     /*
    * Dark Colors

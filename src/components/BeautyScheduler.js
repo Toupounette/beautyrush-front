@@ -125,7 +125,7 @@ class BeautyScheduler extends React.Component{
         this.setState({
             newAppointment:{
                 show: true,
-                selectedMoment: presumedSlot.format('DD/MM/YYYY HH:mm')
+                selectedMoment: presumedSlot
             }
         });
     }
@@ -310,9 +310,10 @@ class BeautyScheduler extends React.Component{
                     isOpen={this.state.newAppointment.show}
                     swipeToClose={true}
                     onDidDismiss={this.handleExitModal}
+                    cssClass="addAppointment"
                  >
                      <IonLabel>Book {this.state.providerInfo.name} for</IonLabel>
-                     <IonSelect id='user_service_selected'  aria-required onIonChange={(event) => {console.log('event', event)}}  >
+                     <IonSelect id='user_service_selected' placeholder="Select service" aria-required onIonChange={(event) => {console.log('event', event)}}  >
                          {this.renderServicesSelect()}
                      </IonSelect>
                      <IonLabel>on</IonLabel>

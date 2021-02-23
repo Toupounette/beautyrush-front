@@ -18,7 +18,6 @@ import {
     informationCircle,
     chatbox,
     person,
-    cog,
     images,
     calendar,
     colorWand,
@@ -99,8 +98,8 @@ class SideMenu extends React.Component {
                     {
                         this.state.pages = [
                             { title: 'Home', path: '/', icon: home },
-                            { title: 'User comments', path: '/admincomments', icon: chatbox  },
-                            { title: 'User accounts', path: '/adminaccounts', icon: person },
+                            { title: 'Admin', path: '/admin', icon: chatbox  },
+                            { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
                 	     { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
@@ -117,8 +116,8 @@ class SideMenu extends React.Component {
                             { title: 'Account', path: '/account', icon: person },
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
-                	     	{ title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                			{ title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                            { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -133,8 +132,8 @@ class SideMenu extends React.Component {
                             { title: 'Account', path: '/account', icon: person },
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
-                			{ title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                			{ title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                            { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                         ] ;
                         break;
                     }

@@ -19,6 +19,7 @@ import UpdatePassword from './pages/UpdatePassword';
 import GeneralTerms from './pages/GeneralTerms';
 import LegalMentions from './pages/LegalMentions';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import Admin from './pages/Admin';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -118,8 +119,7 @@ return (
               {
                 (this.state.connected === true && this.state.role === 'admin') && (
                   <>
-                    <Route path="/admincomments" component={User} exact={true} />
-                    <Route path="/adminaccounts" component={User} exact={true} />
+                    <Route path="/admin" component={Admin} exact={true} />
                   </>
                 )
               }
