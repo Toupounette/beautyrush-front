@@ -27,6 +27,8 @@ import { aperture } from 'ionicons/icons';
 
 import BeautyScheduler from '../components/BeautyScheduler';
 import BeautyHeader from '../components/BeautyHeader';
+import BeautyComments from '../components/BeautyComments';
+
 
 class Provider extends React.Component {
     constructor(props){
@@ -231,7 +233,7 @@ class Provider extends React.Component {
     render(){
         return(
             <IonPage>
-            <BeautyHeader />
+            <BeautyHeader/>
                 <IonContent>                    
                     <IonItem>
                         {this.renderAvatar()}

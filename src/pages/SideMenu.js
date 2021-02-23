@@ -57,25 +57,6 @@ class SideMenu extends React.Component {
         }
     }
 
-    manageBtnColor(){
-        switch( this.state.activePage){
-            case 'Comment':
-            case 'Schedule':
-            case 'Account':
-            case 'Portfolio':
-            case 'Services':
-            case 'User accounts':
-            case 'User comments':
-                {
-                    return 'primary';
-                }
-            default:
-                {
-                    return '';
-                }
-        }
-    }
-
     renderMenuItems(){  
         if(this.state.connected === false)
         {
@@ -105,7 +86,7 @@ class SideMenu extends React.Component {
                             { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
                             { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle },
                             { title: 'Contact', path: '/contact', icon: informationCircle }
-                        ] ;
+                        ];
                         break;
                     }
                 case 'client':
@@ -159,36 +140,6 @@ class SideMenu extends React.Component {
                             </IonLabel>         
                             <IonIcon class="pop" icon={page.icon}/>
                         </IonItem>
-                    )
-                }
-                {
-                    (page.path === null) && (
-                        <>
-                        <IonItem 
-                            button 
-                            key={page.title} 
-                            color={this.manageBtnColor()}                            
-                            onClick={() =>{ document.getElementById('submenu').hidden=false }}   >  
-                            <IonLabel>
-                                {page.title}
-                            </IonLabel>
-                            <IonIcon class="pop" icon={page.icon}/>
-                        </IonItem>
-                        <IonItemGroup id='submenu' hidden={true} submenu >                            
-                            {
-                                page.submenu.map((subpage)=>(
-                                    <IonItem submenu-item button end
-                                        color={subpage.title === this.state.activePage ? 'primary' : ''}
-                                        onClick={() => this.navigateToPage(subpage)}>
-                                        <IonLabel>
-                                            {subpage.title}
-                                        </IonLabel>
-                                        <IonIcon class="pop" icon={subpage.icon}/>
-                                    </IonItem>
-                                ))
-                            }
-                        </IonItemGroup>
-                        </>
                     )
                 }
             </>
