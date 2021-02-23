@@ -18,7 +18,6 @@ import {
     informationCircle,
     chatbox,
     person,
-    cog,
     images,
     calendar,
     colorWand,
@@ -99,9 +98,11 @@ class SideMenu extends React.Component {
                     {
                         this.state.pages = [
                             { title: 'Home', path: '/', icon: home },
-                            { title: 'User comments', path: '/admincomments', icon: chatbox  },
-                            { title: 'User accounts', path: '/adminaccounts', icon: person },
-                            { title: 'About', path: '/about', icon: informationCircle }
+                            { title: 'Admin', path: '/admin', icon: chatbox  },
+                            { title: 'About', path: '/about', icon: informationCircle },
+                            { title: 'General Terms', path: '/generalterms', icon: informationCircle },
+                            { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -112,7 +113,10 @@ class SideMenu extends React.Component {
                             { title: 'Comment', path: '/comments', icon: chatbox },
                             { title: 'Schedule', path: '/schedule', icon: calendar },
                             { title: 'Account', path: '/account', icon: person },
-                            { title: 'About', path: '/about', icon: informationCircle }
+                            { title: 'About', path: '/about', icon: informationCircle },
+                            { title: 'General Terms', path: '/generalterms', icon: informationCircle },
+                            { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -125,7 +129,10 @@ class SideMenu extends React.Component {
                             { title: 'Portfolio', path: '/portfolio', icon: images },
                             { title: 'Services', path: '/services', icon: colorWand },
                             { title: 'Account', path: '/account', icon: person },
-                            { title: 'About', path: '/about', icon: informationCircle }
+                            { title: 'About', path: '/about', icon: informationCircle },
+                            { title: 'General Terms', path: '/generalterms', icon: informationCircle },
+                            { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
                         ] ;
                         break;
                     }

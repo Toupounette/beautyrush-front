@@ -187,7 +187,7 @@ class Provider extends React.Component {
                 clientToProvider={this.isClientToProvider()} 
                 providerServices={this.state.services}
                 providerInfo={this.state.info}
-                calendarType="clientSearchResult"
+                calendarType={store.getState().userAccount.role === 'client' ? "clientSearchResult": null}
             />);
     }
 
