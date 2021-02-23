@@ -86,7 +86,8 @@ class SideMenu extends React.Component {
                 { title: 'About', path: '/about', icon: informationCircle },
                 { title: 'General Terms', path: '/generalterms', icon: informationCircle },
                 { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle },
+                { title: 'Contact', path: '/contact', icon: informationCircle }
                 
             ];
         }
@@ -102,7 +103,8 @@ class SideMenu extends React.Component {
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
                             { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle },
+                            { title: 'Contact', path: '/contact', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -116,7 +118,8 @@ class SideMenu extends React.Component {
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
                             { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle },
+                            { title: 'Contact', path: '/contact', icon: informationCircle }
                         ] ;
                         break;
                     }
@@ -132,7 +135,8 @@ class SideMenu extends React.Component {
                             { title: 'About', path: '/about', icon: informationCircle },
                             { title: 'General Terms', path: '/generalterms', icon: informationCircle },
                             { title: 'Legal Mentions', path: '/legalmentions', icon: informationCircle },
-                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle }
+                            { title: 'Privacy Policy', path: '/privacypolicy', icon: informationCircle },
+                            { title: 'Contact', path: '/contact', icon: informationCircle }
                         ] ;
                         break;
                     }

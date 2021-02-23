@@ -20,6 +20,7 @@ import GeneralTerms from './pages/GeneralTerms';
 import LegalMentions from './pages/LegalMentions';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Admin from './pages/Admin';
+import Contact from './pages/Contact';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -80,6 +81,7 @@ return (
               <Route path="/generalterms" component={GeneralTerms} exact={true}/>
               <Route path="/legalmentions" component={LegalMentions} exact={true}/>
               <Route path="/privacypolicy" component={PrivacyPolicy} exact={true}/>
+              <Route path="/contact" component={Contact} exact={true}/>
 
 
               <Route path="/provider/:id" component={Provider} exact={true} />
