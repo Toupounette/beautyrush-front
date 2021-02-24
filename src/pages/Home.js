@@ -26,7 +26,7 @@ class Home extends React.Component {
         searchResult: [],
         showToastWarning: false,
         showToastError: false,
-        toastErrorMessage: ''
+        toastErrorMessage: 'An error occured. Please try later'
       };
   }
 
@@ -88,7 +88,7 @@ class Home extends React.Component {
       <IonGrid>
             <IonRow>
                 <IonCol>
-                    <IonSelect sizeXs  value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value, searchResult:[] })}>
+                    <IonSelect sizeXs  value={ this.state.searchType } aria-required onIonChange={e => this.setState({ searchType: e.detail.value })}>
                         <IonSelectOption value='byservice'>Search by service</IonSelectOption>
                         <IonSelectOption value='byname'>Search by name</IonSelectOption>
                     </IonSelect>

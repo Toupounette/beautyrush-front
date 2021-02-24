@@ -22,7 +22,7 @@ class SignUp extends React.Component {
         super(props);
         this.state = { 
             accountType:"clients",
-            toastErrorMessage: "",
+            toastErrorMessage: 'An error occured. Please try later',
             showToastSucces: false,
             showToastInvalidEmail: false,
             showToastInvalidPassword: false,
@@ -84,8 +84,6 @@ class SignUp extends React.Component {
             {
                 // Si la creation de comtpe c'est bien passee
                 this.setState({ showToastSuccess : true });
-                // On redirige l'utilisateur vers la page de connexion
-                window.location.replace('/signIn');
                 break;
             }
             default :
@@ -96,7 +94,7 @@ class SignUp extends React.Component {
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 
                 // on enregistre le message d'erreur dans le state pour que le toast d'erreur l'affiche
-                this.setState({ showToastError : true, toastErrorMessage : formatedMessage });   
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage.trim() === '' ? 'An error occured. Please try later' : formatedMessage });   
             }                     
         }
     };
@@ -149,7 +147,11 @@ class SignUp extends React.Component {
                             <div>
                             <IonToast color="success"
                             isOpen={this.state.showToastSuccess}
-                            onDidDismiss={() => this.setState({ showToastSuccess : false })}
+                            onDidDismiss={() => {
+                                this.setState({ showToastSuccess : false });                                
+                                // On redirige l'utilisateur vers la page de connexion
+                                window.location.replace('/signIn');
+                            }}
                             message="Your account has been created"
                             duration={1000}
                             />

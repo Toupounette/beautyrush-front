@@ -25,7 +25,7 @@ class BeautyComments extends React.Component{
             token : store.getState().userAccount.token,
             comments : [],
             showToastError: false,
-            toastErrorMessage: '',
+            toastErrorMessage: 'An error occured. Please try later',
             showEditModal: false,
             commentToUpdate: null
         }

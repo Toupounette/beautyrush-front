@@ -30,7 +30,7 @@ class Admin extends React.Component{
             showToastWarning: false,
             showToastError: false,
             showToastSuccess: false,
-            toastErrorMessage: '',
+            toastErrorMessage: 'An error occured. Please try later',
             toastSuccessMessage: ''
         };
 
@@ -160,12 +160,22 @@ class Admin extends React.Component{
                 </IonGrid>
                 {
                     (this.state.searchResult.length > 0 && this.state.searchType === 'useraccount' ) && (
-                       <BeautyAccountsResult searchResult={this.state.searchResult} deleteAccount={this.deleteAccount} /> 
+                       <BeautyAccountsResult searchResult={this.state.searchResult} deleteAccount={
+                           () => {
+                               this.deleteAccount();
+                               this.forceUpdate();
+                           }
+                        } /> 
                     )
                 }
                 {
                     (this.state.searchResult.length > 0 && this.state.searchType !== 'useraccount' ) && (
-                        <BeautyCommentsResult searchResult={this.state.searchResult} deleteComment={this.deleteComment} />
+                        <BeautyCommentsResult searchResult={this.state.searchResult} deleteAccount={
+                            () => {
+                                this.deleteAccount();
+                                this.forceUpdate();
+                            }
+                         } />
                     )
                 }
                 </IonContent>

@@ -20,7 +20,7 @@ class ForgottenPassword extends React.Component {
         super(props);
         this.state = {
             accountType: "clients",
-            toastErrorMessage:'',
+            toastErrorMessage:'Invalid email for this account type',
             showToastSuccess : false,
             showToastError : false
         };

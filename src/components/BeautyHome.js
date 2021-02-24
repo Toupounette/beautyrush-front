@@ -77,7 +77,6 @@ class BeautyHome extends React.Component{
         let slides = [];
         Object.entries(cards).forEach((card)=>{
             const provider = card[1][1];
-            console.log("provider = ", provider);
             slides.push(
                 <IonSlide>
                     <IonCard>
@@ -105,7 +104,6 @@ class BeautyHome extends React.Component{
         let slides = [];
         Object.entries(cards).forEach((card)=>{
             const provider = card[1][1];
-            console.log("provider = ", provider);
             slides.push(
                 <IonCard>
                     <IonItem>

@@ -32,7 +32,7 @@ class BeautyServices extends React.Component{
             token : store.getState().userAccount.token,
             services : [],
             showToastError: false,
-            toastErrorMessage: ''          
+            toastErrorMessage: 'An error occured. Please try later'          
         }
     }
 

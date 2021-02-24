@@ -25,7 +25,7 @@ class SignIn extends React.Component {
         super(props);
         this.state = { 
             accountType:"clients",
-            toastErrorMessage: "",
+            toastErrorMessage: 'An error occured. Please try later',
             showToastSuccess : false,
             showToastError : false };
 
@@ -85,7 +85,10 @@ class SignIn extends React.Component {
             }
             case 401 :
             {
-                this.setState({ showToastError : true, toastErrorMessage : 'Invalid email or password'   });
+                const formatedMessage = connectAccountResponse
+                                    .responseText
+                                    .replaceAll("\"", "").replaceAll("\\", "");
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage.trim() === '' ? 'Invalid email or password' : formatedMessage });
                 break;
             }
             default :
@@ -96,7 +99,7 @@ class SignIn extends React.Component {
                                     .replaceAll("\"", "").replaceAll("\\", "");
                 
                 // on enregistre le message d'erreur dans le state pour que le toast d'erreur l'affiche
-                this.setState({ showToastError : true, toastErrorMessage : formatedMessage  });
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage.trim() === '' ? 'An error occured. Please try later' : formatedMessage })
             }
         }
           

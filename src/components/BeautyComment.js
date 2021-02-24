@@ -38,7 +38,6 @@ class BeautyComment extends React.Component{
             xhttp.send(); 
 
             const response = JSON.parse(xhttp.responseText);
-            console.log("response = ", response);
 
             this.state = {
                 token: token,

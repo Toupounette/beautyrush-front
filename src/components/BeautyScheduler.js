@@ -50,7 +50,7 @@ class BeautyScheduler extends React.Component{
             },
             showToastError: false,
             showToastSuccess: false,
-            toastErrorMessage: ''
+            toastErrorMessage: 'An error occured. Please try later'
         }
 
         this.handleShowAppointment = this.handleShowAppointment.bind(this);

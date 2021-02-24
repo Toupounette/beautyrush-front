@@ -25,7 +25,7 @@ class BeautyAccount extends React.Component{
             accountData : null,
             showToastSucces : false,
             showToastError : false,
-            toastErrorMessage: ''
+            toastErrorMessage: 'An erro ccured. Try later'
         };
     }
 

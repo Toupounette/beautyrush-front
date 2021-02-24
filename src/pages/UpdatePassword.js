@@ -30,7 +30,7 @@ class UpdatePassword extends React.Component {
             accountData : null,
             showToastSuccess : false,
             showToastError : false,
-            toastErrorMessage: ''
+            toastErrorMessage: 'An error occured. Please try later'
         };
     }
 
@@ -84,7 +84,7 @@ class UpdatePassword extends React.Component {
                 .responseText
                 .replaceAll("\"", "").replaceAll("\\", "");
 
-                this.setState({ showToastError : true, toastErrorMessage: formatedMessage });
+                this.setState({ showToastError : true, toastErrorMessage : formatedMessage.trim() === '' ? 'An error occured. Please try later' : formatedMessage })
             }
         }
     }

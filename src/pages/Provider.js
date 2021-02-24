@@ -48,7 +48,7 @@ class Provider extends React.Component {
             comments : [],
             schedule : null,
             showToastError: false,
-            toastErrorMessage: ''
+            toastErrorMessage: 'An error occured. Please try later'
         }
     }
 
